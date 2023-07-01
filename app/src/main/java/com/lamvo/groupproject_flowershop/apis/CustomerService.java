@@ -9,6 +9,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface CustomerService {
     String CUSTOMERS = "CustomerTbl";
@@ -17,6 +18,9 @@ public interface CustomerService {
 
     @GET(CUSTOMERS + "/{id}")
     Call<Customer> getCustomer(@Path("id") Object id);
+
+    @GET(CUSTOMERS)
+    Call<Customer[]> getCustomerByEmail(@Query("email") String email);
 
     @POST(CUSTOMERS)
     Call<Customer> createCustomer(@Body Customer customer);
