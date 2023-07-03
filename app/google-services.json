@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "696634523807",
+    "project_id": "prm-groupproject-flowershop",
+    "storage_bucket": "prm-groupproject-flowershop.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696634523807:android:8a16435f1899e28c12e2aa",
+        "android_client_info": {
+          "package_name": "com.lamvo.groupproject_flowershop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696634523807-uqft3fsn012cb29oa9d4ft6hfdcv2uib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lamvo.groupproject_flowershop",
+            "certificate_hash": "0223de25e25d7aa89dbdbff97873b92f4c230f93"
+          }
+        },
+        {
+          "client_id": "696634523807-dkub3hufvettqek1aj6vtc7p8cj0f2f8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_DSdvn3nn73ykHSlBDhhvkupgTq7tIDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696634523807-dkub3hufvettqek1aj6vtc7p8cj0f2f8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
