@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FlowerDetailActivity"
+    android:background="@color/white">
+
+    <ImageView
+        android:id="@+id/ivFlower"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tvFlowerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="10dp"
+        android:text="Flower Name"
+        android:textSize="24sp"
+        android:textColor="@color/pink"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/ivFlower"
+        tools:layout_editor_absoluteX="16dp" />
+    <TextView
+        android:id="@+id/tvFlowerDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingStart="10dp"
+        android:text="Flower Description"
+        android:textColor="@color/pink"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/tvFlowerName"
+        tools:layout_editor_absoluteX="16dp" />
+    <TextView
+        android:id="@+id/tvFlowerPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingStart="10dp"
+        android:text="đ200.000"
+        android:textSize="20sp"
+        android:textColor="@color/pink"
+        app:layout_constraintTop_toBottomOf="@+id/tvFlowerDescription"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <EditText
+        android:id="@+id/etQuantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/pink"
+        android:ems="10"
+        android:hint="Số lượng"
+        android:textSize="20sp"
+        android:inputType="number"
+        android:textColorHint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:background="@color/pink"
+        android:textColor="@color/white"
+        android:padding="10sp"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm vào giỏ hàng"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
