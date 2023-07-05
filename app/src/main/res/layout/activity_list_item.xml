@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="250dp"
+    app:cardBackgroundColor="@color/pink"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="12dp"
+    app:cardUseCompatPadding="true"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="200dp"
+        android:paddingStart="28dp">
+
+
+        <ImageView
+            android:id="@+id/imageviewAddToCart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="add to cart button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icons8_shopping_basket_add_96___" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="TextView"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvShortDescription"
+            app:layout_constraintStart_toEndOf="@+id/imgThubnail"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Price"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgThubnail"
+            app:layout_constraintTop_toBottomOf="@+id/tvShortDescription" />
+
+        <TextView
+            android:id="@+id/tvShortDescription"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:text="Short Description"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/tvPrice"
+            app:layout_constraintStart_toEndOf="@+id/imgThubnail"
+            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+
+        <ImageView
+            android:id="@+id/imgThubnail"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:contentDescription="flower thumbnail"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+
