@@ -67,24 +67,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             isSuccess = true;
             // create new user account in firebase
             auth.createUserWithEmailAndPassword(email, password)
-                    .addOnFailureListener(new OnFailureListener() {
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onFailure(@NonNull Exception e) {
-                            isSuccess = false;
-                            Toast.makeText(SignUpActivity.this, "Register Failed! " + e.getMessage(), Toast.LENGTH_LONG).show();
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // create new user account in database
+                                Customer customer = new Customer(email);
+                                RegisterAccount(customer);
+                            } else {
+                                isSuccess = false;
+                                Toast.makeText(SignUpActivity.this,
+                                        "Register failed! " + task.getException().getMessage(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
-            if (!isSuccess) {
-                return;
-            }
-            // create new user account in database
-            Customer customer = new Customer(email);
-            RegisterAccount(customer);
-
-            if (isSuccess) {
-                Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
-            }
         }
     }
     private boolean ValidateData(String email, String password, String confirmPass) {
@@ -119,7 +116,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             call.enqueue(new Callback<Customer>() {
                 @Override
                 public void onResponse(Call<Customer> call, Response<Customer> response) {
-
+                    Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
                 }
                 @Override
                 public void onFailure(Call<Customer> call, Throwable t) {
