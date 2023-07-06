@@ -16,10 +16,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ListAdapter"
+            android:name=".FlowerDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".ListItem"
+            android:name=".ListAdapter"
             android:exported="false" />
         <activity
             android:name=".FlowersList"
