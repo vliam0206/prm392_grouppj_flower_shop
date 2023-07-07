@@ -35,7 +35,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     EditText etEmail, etPassword;
     Button btnLogin;
     TextView txtRegister;
-    boolean isSuccess;
     CredentialService credentialService;
 
     @Override
@@ -66,27 +65,22 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             if (!ValidateData(email, password)) {
                 return;
             }
-
-            isSuccess = true;
+            
             auth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
                         public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(SignInActivity.this, "Login sucessfully!", Toast.LENGTH_SHORT).show();
+                            // Login successfully, get accountId & redirect to customer page
+                            loadAccount(email);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            isSuccess = false;
                             Toast.makeText(SignInActivity.this, "Login Failed! " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
-            if (!isSuccess) {
-                return;
-            }
-            // Login successfully, get accountId & redirect to customer page
-            loadAccount(email);
+            
         }
     }
 
@@ -121,11 +115,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Customer customer = customers[0];
                     credentialService.setCurrentUserId(customer.getId());
 
-//                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                    Toast.makeText(SignInActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(SignInActivity.this, FlowersList.class));
-                    // Retrieve the updated current user ID here
-//                    long currentUserId = credentialService.getCurrentUserId();
-//                    Toast.makeText(SignInActivity.this, "currentId: " + currentUserId, Toast.LENGTH_SHORT).show();
                 }
                 @Override
                 public void onFailure(Call<Customer[]> call, Throwable t) {
