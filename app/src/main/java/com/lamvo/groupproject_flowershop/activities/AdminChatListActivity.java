@@ -21,6 +21,7 @@ import com.lamvo.groupproject_flowershop.TestConnectDBApiActivity;
 import com.lamvo.groupproject_flowershop.adapters.CustomerAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
+import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.models.Customer;
 
 import java.util.ArrayList;
@@ -32,8 +33,6 @@ import retrofit2.Response;
 public class AdminChatListActivity extends AppCompatActivity {
     ListView lvCustomers;
     ArrayList<Customer> customerList;
-    ArrayList<String> listDataTest;
-    ArrayAdapter adapter;
     CustomerAdapter customerAdapter;
     CustomerService customerService;
     @Override
@@ -48,8 +47,12 @@ public class AdminChatListActivity extends AppCompatActivity {
         lvCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String senderRoom = "";
-                String receiveRoom = "";
+                Customer customer= (Customer) customerAdapter.getItem(position);
+                Intent intent = new Intent(AdminChatListActivity.this, ChatActivity.class);
+                intent.putExtra(AppConstants.USER_ID, customer.getId());
+                intent.putExtra(AppConstants.USER_UID, customer.getUid());
+                startActivity(intent);
+                finish();
             }
         });
     }

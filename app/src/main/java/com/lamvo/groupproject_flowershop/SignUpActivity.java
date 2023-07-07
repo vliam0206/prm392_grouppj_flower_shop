@@ -70,7 +70,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // create new user account in database
-                                Customer customer = new Customer(email, name);
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                Customer customer = new Customer(uid, email, name);
                                 RegisterAccount(customer);
                             } else {
                                 Toast.makeText(SignUpActivity.this,

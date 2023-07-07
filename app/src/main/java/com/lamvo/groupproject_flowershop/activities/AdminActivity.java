@@ -26,6 +26,7 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminActivity.this, AdminChatListActivity.class));
+                finish();
             }
         });
     }

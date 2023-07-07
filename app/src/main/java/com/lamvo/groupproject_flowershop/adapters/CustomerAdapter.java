@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.activities.AdminChatListActivity;
+import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.models.Customer;
 import com.squareup.picasso.Picasso;
 
@@ -39,7 +40,7 @@ public class CustomerAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return customerList.get(position).getId();
+        return -1;
     }
 
     @Override
@@ -53,7 +54,9 @@ public class CustomerAdapter extends BaseAdapter {
         TextView cusEmail = view.findViewById(R.id.txtCustomerEmail);
 
         Customer customer =(Customer)getItem(position);
-        Picasso.get().load(customer.getAvatar()).into(avatar);
+        if (!customer.getAvatar().equals(AppConstants.DEFAULT_AVATAR)) {
+            Picasso.get().load(customer.getAvatar()).into(avatar);
+        }
         cusName.setText(customer.getCustomerName());
         cusEmail.setText(customer.getEmail());
         return view;
