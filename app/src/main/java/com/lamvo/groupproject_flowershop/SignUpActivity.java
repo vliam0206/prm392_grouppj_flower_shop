@@ -60,6 +60,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             String name = etName.getText().toString().trim();
             String password = etPassword.getText().toString();
             String confirmPass = etConfirmPassword.getText().toString();
+
             if (!ValidateData(email, password, confirmPass, name)) {
                 return;
             }
@@ -72,6 +73,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 // create new user account in database
                                 String uid = FirebaseAuth.getInstance().getUid();
                                 Customer customer = new Customer(uid, email, name);
+
                                 RegisterAccount(customer);
                             } else {
                                 Toast.makeText(SignUpActivity.this,
