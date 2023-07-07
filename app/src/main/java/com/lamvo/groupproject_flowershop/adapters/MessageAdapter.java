@@ -12,7 +12,10 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.R;
+import com.lamvo.groupproject_flowershop.constants.AppConstants;
+import com.lamvo.groupproject_flowershop.models.Customer;
 import com.lamvo.groupproject_flowershop.models.MessageModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -22,16 +25,16 @@ public class MessageAdapter extends BaseAdapter {
     private int layoutRight;
     private int layoutLeft;
     private ArrayList<MessageModel> messageList;
-    private String avatar;
+    private Customer receiver;
 
     public MessageAdapter(Context context, int layoutRight, int layoutLeft,
                           ArrayList<MessageModel> messageList,
-                          String avatar) {
+                          Customer receiver) {
         this.context = context;
         this.messageList = messageList;
         this.layoutRight = layoutRight;
         this.layoutLeft = layoutLeft;
-        this.avatar = avatar;
+        this.receiver = receiver;
     }
 
     @Override
@@ -62,7 +65,13 @@ public class MessageAdapter extends BaseAdapter {
             view = inflater.inflate(layoutRight, null);
         } else {
             view = inflater.inflate(layoutLeft, null);
-//            ImageView imgAvatar =
+            ImageView imgAvatar = view.findViewById(R.id.imgChatAvatar);
+            TextView userName = view.findViewById(R.id.txtChatUsername);
+
+            userName.setText(receiver.getCustomerName());
+            if (!receiver.getAvatar().equals(AppConstants.DEFAULT_AVATAR)) {
+                Picasso.get().load(receiver.getAvatar()).into(imgAvatar);
+            }
         }
 
         TextView txtMessage = view.findViewById(R.id.txtMessage);

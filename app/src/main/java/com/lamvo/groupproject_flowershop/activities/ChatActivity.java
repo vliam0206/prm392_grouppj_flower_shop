@@ -119,7 +119,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 R.layout.message_row_right,
                 R.layout.message_row_left,
                 messageList,
-                mCustomer.getAvatar());
+                mCustomer);
         lvChats.setAdapter(messageAdapter);
     }
 
