@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">GroupProject_FlowerShop</string>
+    <string name="app_name">Flower Shop</string>
+    <string name="app_name_admin">Flower Shop - Admin</string>
+    <string name="app_chat">Chats</string>
 </resources>

@@ -17,13 +17,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.lamvo.groupproject_flowershop.activities.AdminActivity;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
+import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.models.Customer;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,11 +31,29 @@ import retrofit2.Response;
 
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth auth;
+    FirebaseUser firebaseUser;
     private CustomerService customerService;
     EditText etEmail, etPassword;
     Button btnLogin;
     TextView txtRegister;
     CredentialService credentialService;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            String email = firebaseUser.getEmail();
+            if (email.equals(AppConstants.ADMIN_ACCOUNT)) {
+                startActivity(new Intent(SignInActivity.this, AdminActivity.class));
+                finish();
+            } else {
+                startActivity(new Intent(SignInActivity.this, FlowersList.class));
+                finish();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +77,13 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         if (v.getId() == txtRegister.getId()) {
             startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
         }
-        if (v.getId() == btnLogin.getId()) {
+        else if (v.getId() == btnLogin.getId()) {
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString();
             if (!ValidateData(email, password)) {
                 return;
             }
-            
+
             auth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener(new OnSuccessListener<AuthResult>() {
                         @Override
@@ -80,7 +98,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                             Toast.makeText(SignInActivity.this, "Login Failed! " + e.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     });
-            
         }
     }
 
@@ -115,8 +132,15 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Customer customer = customers[0];
                     credentialService.setCurrentUserId(customer.getId());
 
-                    Toast.makeText(SignInActivity.this, "Login successfully!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignInActivity.this, FlowersList.class));
+                    Toast.makeText(SignInActivity.this, "Login sucessfully!", Toast.LENGTH_SHORT).show();
+
+                    if (customer.getEmail().equals(AppConstants.ADMIN_ACCOUNT)) {
+                        startActivity(new Intent(SignInActivity.this, AdminActivity.class));
+                        finish();
+                    } else {
+                        startActivity(new Intent(SignInActivity.this, FlowersList.class));
+                        finish();
+                    }
                 }
                 @Override
                 public void onFailure(Call<Customer[]> call, Throwable t) {

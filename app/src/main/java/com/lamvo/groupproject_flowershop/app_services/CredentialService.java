@@ -25,6 +25,7 @@ public class CredentialService {
         return preferences.getLong(AppConstants.CURRENT_USER_ID, -1);
     }
 
+
     /**
      * Set the current logged in userId.
      * @param id
@@ -32,5 +33,6 @@ public class CredentialService {
     public void setCurrentUserId(long id) {
         editor.putLong(AppConstants.CURRENT_USER_ID, id);
         editor.commit();
+
     }
 }

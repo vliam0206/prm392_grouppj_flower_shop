@@ -1,9 +1,6 @@
 package com.lamvo.groupproject_flowershop;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lamvo.groupproject_flowershop.R;
+import com.lamvo.groupproject_flowershop.FlowersList;
+import com.lamvo.groupproject_flowershop.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import com.lamvo.groupproject_flowershop.models.Flower;

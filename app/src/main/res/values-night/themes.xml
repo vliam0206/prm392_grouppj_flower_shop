@@ -2,6 +2,6 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.GroupProject_FlowerShop" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/pink</item>
     </style>
 </resources>

@@ -1,7 +1,10 @@
 package com.lamvo.groupproject_flowershop.models;
 
+import com.lamvo.groupproject_flowershop.constants.AppConstants;
+
 public class Customer {
     private long id;
+    private String uid;
     private String customerName;
     private String email;
     private String avatar;
@@ -9,27 +12,30 @@ public class Customer {
     private String gender;
     private String address;
 
-    public Customer(String customerName, String email, String avatar, String phoneNumber, String gender, String address) {
-        this.customerName = customerName;
-        this.email = email;
-        this.avatar = avatar;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.address = address;
-    }
-
-    public Customer(long id, String customerName, String email, String avatar, String phoneNumber, String gender, String address) {
-        this.id = id;
-        this.customerName = customerName;
-        this.email = email;
-        this.avatar = avatar;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-        this.address = address;
-    }
 
     public Customer(String email) {
         this.email = email;
+    }
+    public Customer(String email, String name) {
+        this.customerName = name;
+        this.email = email;
+    }
+    public Customer(String uid, String email, String name) {
+        this.uid = uid;
+        this.customerName = name;
+        this.email = email;
+        this.avatar = AppConstants.DEFAULT_AVATAR;
+    }
+
+    public Customer() {
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public Customer(String email, String name) {

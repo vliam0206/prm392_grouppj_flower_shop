@@ -14,8 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,11 +55,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         if (v.getId() == txtLogin.getId()) {
             startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
         }
-        if (v.getId() == btnRegister.getId()) {
+        else if (v.getId() == btnRegister.getId()) {
             String email = etEmail.getText().toString().trim();
+            String name = etName.getText().toString().trim();
             String password = etPassword.getText().toString();
             String confirmPass = etConfirmPassword.getText().toString();
-            String name = etName.getText().toString().trim();
+
             if (!ValidateData(email, password, confirmPass, name)) {
                 return;
             }
@@ -72,7 +71,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // create new user account in database
-                                Customer customer = new Customer(email, name);
+                                String uid = FirebaseAuth.getInstance().getUid();
+                                Customer customer = new Customer(uid, email, name);
+
                                 RegisterAccount(customer);
                             } else {
                                 Toast.makeText(SignUpActivity.this,
@@ -85,12 +86,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     }
     private boolean ValidateData(String email, String password, String confirmPass, String name) {
         boolean flag = true;
-
         if (name.isEmpty()) {
-            etEmail.setError("Name can not be empty!");
+            etName.setError("Full name can not be empty!");
             flag = false;
         }
-
         if (email.isEmpty()) {
             etEmail.setError("Email can not be empty!");
             flag = false;
@@ -122,6 +121,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 public void onResponse(Call<Customer> call, Response<Customer> response) {
                     Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+                    finish();
                 }
                 @Override
                 public void onFailure(Call<Customer> call, Throwable t) {
