@@ -29,13 +29,25 @@
                 android:textStyle="bold"
                 android:textColor="@color/pink"/>
             <EditText
+                android:id="@+id/etNameRegister"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="40dp"
+                android:padding="8dp"
+                android:hint="Full name"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/pink"
+                android:textColorHint="@color/pink"/>
+            <EditText
                 android:id="@+id/etEmailRegister"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="40dp"
                 android:padding="8dp"
                 android:hint="Email"
-                android:drawableLeft="@drawable/ic_baseline_person_24"
+                android:drawableLeft="@drawable/ic_baseline_email_24_pink"
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"
                 android:backgroundTint="@color/pink"

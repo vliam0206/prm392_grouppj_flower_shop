@@ -30,10 +30,9 @@ import retrofit2.Response;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth auth;
     private CustomerService customerService;
-    EditText etEmail, etPassword, etConfirmPassword;
+    EditText etEmail, etPassword, etConfirmPassword, etName;
     Button btnRegister;
     TextView txtLogin;
-    boolean isSuccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         etEmail = findViewById(R.id.etEmailRegister);
         etPassword = findViewById(R.id.etPasswordRegister);
         etConfirmPassword = findViewById(R.id.etPasswordConfirm);
+        etName = findViewById(R.id.etNameRegister);
         btnRegister = findViewById(R.id.btnSignup);
         txtLogin = findViewById(R.id.textViewLogin);
         auth = FirebaseAuth.getInstance();
@@ -61,10 +61,10 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             String email = etEmail.getText().toString().trim();
             String password = etPassword.getText().toString();
             String confirmPass = etConfirmPassword.getText().toString();
-            if (!ValidateData(email, password, confirmPass)) {
+            String name = etName.getText().toString().trim();
+            if (!ValidateData(email, password, confirmPass, name)) {
                 return;
             }
-            isSuccess = true;
             // create new user account in firebase
             auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -72,10 +72,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 // create new user account in database
-                                Customer customer = new Customer(email);
+                                Customer customer = new Customer(email, name);
                                 RegisterAccount(customer);
                             } else {
-                                isSuccess = false;
                                 Toast.makeText(SignUpActivity.this,
                                         "Register failed! " + task.getException().getMessage(),
                                         Toast.LENGTH_SHORT).show();
@@ -84,8 +83,13 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     });
         }
     }
-    private boolean ValidateData(String email, String password, String confirmPass) {
+    private boolean ValidateData(String email, String password, String confirmPass, String name) {
         boolean flag = true;
+
+        if (name.isEmpty()) {
+            etEmail.setError("Name can not be empty!");
+            flag = false;
+        }
 
         if (email.isEmpty()) {
             etEmail.setError("Email can not be empty!");
@@ -121,7 +125,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 @Override
                 public void onFailure(Call<Customer> call, Throwable t) {
-                    isSuccess = false;
                     Toast.makeText(SignUpActivity.this, "Register failed! " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
