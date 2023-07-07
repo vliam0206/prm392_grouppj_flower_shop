@@ -121,7 +121,8 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                     Customer customer = customers[0];
                     credentialService.setCurrentUserId(customer.getId());
 
-                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+//                    startActivity(new Intent(SignInActivity.this, MainActivity.class));
+                    startActivity(new Intent(SignInActivity.this, FlowersList.class));
                     // Retrieve the updated current user ID here
 //                    long currentUserId = credentialService.getCurrentUserId();
 //                    Toast.makeText(SignInActivity.this, "currentId: " + currentUserId, Toast.LENGTH_SHORT).show();
