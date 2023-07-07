@@ -1,10 +1,18 @@
 package com.lamvo.groupproject_flowershop.models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Flower {
+    @PrimaryKey
     private long id;
+    @ColumnInfo(name = "flower_name")
     private String flowerName;
     private String description;
     private String imageUrl;
+    @ColumnInfo(name = "unit_price")
     private double unitPrice;
     private int unitInStock;
 

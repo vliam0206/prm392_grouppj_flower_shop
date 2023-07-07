@@ -7,17 +7,10 @@
     android:background="@color/pink_pastel"
     tools:context=".ViewCartActivity">
 
-    <ListView
-        android:layout_width="413dp"
-        android:layout_height="547dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="413dp"
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="110dp"
         android:background="@drawable/round_layout"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,8 +41,8 @@
             android:layout_marginStart="44dp"
             android:layout_marginTop="12dp"
             android:text="Total Price $"
-            android:textSize="20dp"
             android:textColor="@color/pink"
+            android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTotal" />
 
@@ -67,5 +60,16 @@
             app:layout_constraintStart_toEndOf="@+id/textView"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cartFlowerList"
+        android:layout_width="411dp"
+        android:layout_height="485dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.63" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
