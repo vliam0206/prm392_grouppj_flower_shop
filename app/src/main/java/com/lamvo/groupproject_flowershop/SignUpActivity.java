@@ -119,6 +119,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 public void onResponse(Call<Customer> call, Response<Customer> response) {
                     Toast.makeText(SignUpActivity.this, "Register successfully!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(SignUpActivity.this, SignInActivity.class));
+                    finish();
                 }
                 @Override
                 public void onFailure(Call<Customer> call, Throwable t) {

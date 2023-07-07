@@ -10,14 +10,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.SignInActivity;
-import com.lamvo.groupproject_flowershop.TestConnectDBApiActivity;
 import com.lamvo.groupproject_flowershop.adapters.CustomerAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
@@ -41,6 +39,9 @@ public class AdminChatListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_chat_list);
 
         lvCustomers = findViewById(R.id.lvCustomerList);
+        customerList = new ArrayList<>();
+        customerAdapter = new CustomerAdapter(AdminChatListActivity.this, R.layout.customer_list_item, customerList);
+        lvCustomers.setAdapter(customerAdapter);
         customerService = CustomerRepository.getCustomerService();
         LoadCustomerList();
 
@@ -52,7 +53,6 @@ public class AdminChatListActivity extends AppCompatActivity {
                 intent.putExtra(AppConstants.USER_ID, customer.getId());
                 intent.putExtra(AppConstants.USER_UID, customer.getUid());
                 startActivity(intent);
-                finish();
             }
         });
     }
@@ -67,12 +67,11 @@ public class AdminChatListActivity extends AppCompatActivity {
                     if (customers == null) {
                         return;
                     }
-                    customerList = new ArrayList<>();
+                    customerList.clear();
                     for (Customer customer: customers) {
                         customerList.add(customer);
                     }
-                    customerAdapter = new CustomerAdapter(AdminChatListActivity.this, R.layout.customer_list_item, customerList);
-                    lvCustomers.setAdapter(customerAdapter);
+                    customerAdapter.notifyDataSetChanged();
                 }
 
                 @Override

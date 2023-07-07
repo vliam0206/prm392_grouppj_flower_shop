@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="50dp"
-            app:cardCornerRadius="15dp"
+            app:cardCornerRadius="17dp"
             app:cardElevation="2dp"
             android:layout_marginLeft="10dp">
             <RelativeLayout
@@ -48,7 +48,7 @@
                 android:background="@color/gray">
 
                 <TextView
-                    android:id="@+id/idChatMessage"
+                    android:id="@+id/txtChatMessage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"

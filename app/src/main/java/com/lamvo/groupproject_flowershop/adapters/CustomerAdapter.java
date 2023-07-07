@@ -18,11 +18,11 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 public class CustomerAdapter extends BaseAdapter {
-    private AdminChatListActivity context;
+    private Context context;
     private int layout;
     private ArrayList<Customer> customerList;
 
-    public CustomerAdapter(AdminChatListActivity context, int layout, ArrayList<Customer> customerList) {
+    public CustomerAdapter(Context context, int layout, ArrayList<Customer> customerList) {
         this.context = context;
         this.layout = layout;
         this.customerList = customerList;

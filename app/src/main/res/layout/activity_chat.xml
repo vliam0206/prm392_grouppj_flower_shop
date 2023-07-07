@@ -41,7 +41,8 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:src="@mipmap/ic_send_pink"/>
+                android:src="@mipmap/ic_send_pink"
+                android:background="@color/nothing"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

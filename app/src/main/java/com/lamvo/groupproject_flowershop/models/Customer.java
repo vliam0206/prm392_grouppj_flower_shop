@@ -27,6 +27,9 @@ public class Customer {
         this.avatar = AppConstants.DEFAULT_AVATAR;
     }
 
+    public Customer() {
+    }
+
     public String getUid() {
         return uid;
     }

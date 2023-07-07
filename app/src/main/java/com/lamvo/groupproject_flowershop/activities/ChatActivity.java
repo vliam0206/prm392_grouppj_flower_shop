@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lamvo.groupproject_flowershop.FlowersList;
 import com.lamvo.groupproject_flowershop.R;
+import com.lamvo.groupproject_flowershop.SignInActivity;
 import com.lamvo.groupproject_flowershop.adapters.MessageAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
@@ -30,7 +32,9 @@ import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.models.Customer;
 import com.lamvo.groupproject_flowershop.models.MessageModel;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -55,6 +59,10 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        lvChats = findViewById(R.id.lvChatScreen);
+        etMessage = findViewById(R.id.etChatContent);
+        btnSendChat = findViewById(R.id.btnSendChat);
+
         intent = getIntent();
         if (intent == null) {
             return;
@@ -62,9 +70,15 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         receiverId = intent.getLongExtra(AppConstants.USER_ID, -1);
         receiverUid = intent.getStringExtra(AppConstants.USER_UID);
 
-        getCustomer();
+        customerService = CustomerRepository.getCustomerService();
+        getReceiver(receiverId);
 
-        initilize();
+        messageList = new ArrayList<>();
+        messageAdapter = new MessageAdapter(ChatActivity.this,
+                R.layout.message_row_right,
+                R.layout.message_row_left,
+                messageList);
+        lvChats.setAdapter(messageAdapter);
 
         senderRoom = FirebaseAuth.getInstance().getUid() + receiverUid;
         recieverRoom = receiverUid + FirebaseAuth.getInstance().getUid();
@@ -82,6 +96,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     MessageModel messageModel = dataSnapShot.getValue(MessageModel.class);
                     messageList.add(messageModel);
                 }
+                messageAdapter.setReceiver(mCustomer);
                 messageAdapter.notifyDataSetChanged();
             }
             @Override
@@ -92,8 +107,8 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         btnSendChat.setOnClickListener(this);
 
     }
-    private void getCustomer() {
-        Call<Customer> call = customerService.getCustomer(receiverId);
+    private void getReceiver(long id) {
+        Call<Customer> call = customerService.getCustomer(id);
         call.enqueue(new Callback<Customer>() {
             @Override
             public void onResponse(Call<Customer> call, Response<Customer> response) {
@@ -109,19 +124,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
-    private void initilize() {
-        customerService = CustomerRepository.getCustomerService();
-        lvChats = findViewById(R.id.lvChatScreen);
-        etMessage = findViewById(R.id.etChatContent);
-        btnSendChat = findViewById(R.id.btnSendChat);
-        messageList = new ArrayList<>();
-        messageAdapter = new MessageAdapter(ChatActivity.this,
-                R.layout.message_row_right,
-                R.layout.message_row_left,
-                messageList,
-                mCustomer);
-        lvChats.setAdapter(messageAdapter);
-    }
 
     @Override
     public void onClick(View v) {
@@ -132,7 +134,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 return;
             }
             // send message
-            String msgId = UUID.randomUUID().toString();
+            String msgId = (new Date()).toString();
 
             MessageModel msgModel = new MessageModel(msgId, FirebaseAuth.getInstance().getUid(), message);
 
@@ -169,6 +171,9 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(ChatActivity.this, SignInActivity.class));
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

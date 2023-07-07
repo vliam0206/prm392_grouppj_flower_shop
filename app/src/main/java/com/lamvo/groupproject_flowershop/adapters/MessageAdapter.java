@@ -28,12 +28,14 @@ public class MessageAdapter extends BaseAdapter {
     private Customer receiver;
 
     public MessageAdapter(Context context, int layoutRight, int layoutLeft,
-                          ArrayList<MessageModel> messageList,
-                          Customer receiver) {
+                          ArrayList<MessageModel> messageList) {
         this.context = context;
         this.messageList = messageList;
         this.layoutRight = layoutRight;
         this.layoutLeft = layoutLeft;
+    }
+
+    public void setReceiver(Customer receiver) {
         this.receiver = receiver;
     }
 
@@ -65,6 +67,7 @@ public class MessageAdapter extends BaseAdapter {
             view = inflater.inflate(layoutRight, null);
         } else {
             view = inflater.inflate(layoutLeft, null);
+
             ImageView imgAvatar = view.findViewById(R.id.imgChatAvatar);
             TextView userName = view.findViewById(R.id.txtChatUsername);
 
@@ -73,9 +76,8 @@ public class MessageAdapter extends BaseAdapter {
                 Picasso.get().load(receiver.getAvatar()).into(imgAvatar);
             }
         }
-
-        TextView txtMessage = view.findViewById(R.id.txtMessage);
-        txtMessage.setText(message.getMessage());
+        TextView txtMessage = view.findViewById(R.id.txtChatMessage);
+        txtMessage.setText(message.getMessage()+"");
 
         return view;
     }
