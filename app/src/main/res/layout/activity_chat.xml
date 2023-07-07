@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ChatActivity"
+    android:orientation="vertical"
+    android:background="@color/pink_pastel">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chat"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginVertical="20dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
+        <ListView
+            android:id="@+id/lvChatScreen"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:background="@color/white"
+            android:paddingTop="10dp"
+            android:paddingHorizontal="10dp"/>
+    </androidx.cardview.widget.CardView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal">
+        <EditText
+            android:id="@+id/etChatContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Chat something with shop"
+            android:backgroundTint="@color/pink"
+            android:padding="10dp"/>
+
+        <ImageButton
+            android:id="@+id/btnSendChat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/nothing"
+            android:src="@drawable/ic_baseline_send_24_pink" />
+    </RelativeLayout>
+</LinearLayout>

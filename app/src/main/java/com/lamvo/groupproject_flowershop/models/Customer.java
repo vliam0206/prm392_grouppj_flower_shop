@@ -31,6 +31,10 @@ public class Customer {
     public Customer(String email) {
         this.email = email;
     }
+    public Customer(String email, String name) {
+        this.customerName = name;
+        this.email = email;
+    }
 
     public long getId() {
         return id;
