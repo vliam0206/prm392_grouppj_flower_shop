@@ -38,10 +38,6 @@ public class Customer {
         this.uid = uid;
     }
 
-    public Customer(String email, String name) {
-        this.email = email;
-        this.customerName = name;
-    }
     public long getId() {
         return id;
     }
