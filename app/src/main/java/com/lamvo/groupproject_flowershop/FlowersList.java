@@ -50,11 +50,14 @@ public class FlowersList extends AppCompatActivity {
 
         getAdminAccount(AppConstants.ADMIN_ACCOUNT);
         getAllFlowers();
+        Intent intent = getIntent();
+        long idCus = intent.getLongExtra("idCustomer", -1);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(FlowersList.this, FlowerDetailActivity.class);
                 intent.putExtra("id", arrayFlowers.get(position).getId());
+                intent.putExtra("idCus",idCus);
                 startActivity(intent);
             }
         });

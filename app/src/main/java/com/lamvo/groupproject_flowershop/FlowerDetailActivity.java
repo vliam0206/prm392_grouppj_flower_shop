@@ -2,22 +2,28 @@ package com.lamvo.groupproject_flowershop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.activities.ChatActivity;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.db.AppDatabase;
+import com.lamvo.groupproject_flowershop.db.AppExecutors;
+import com.lamvo.groupproject_flowershop.models.Cart;
 import com.lamvo.groupproject_flowershop.models.Flower;
 
 import retrofit2.Call;
@@ -49,6 +55,13 @@ public class FlowerDetailActivity extends AppCompatActivity {
         if (id != -1) {
             viewFlower(id);
         }
+        long idCus = intent.getLongExtra("idCus", -1);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertCart(id,idCus);
+            }
+        });
     }
 
     public void viewFlower(long id) {
@@ -98,5 +111,51 @@ public class FlowerDetailActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    public void insertCart(long idFlower,long idCustomer){
+        try {
+            Call<Flower> call = flowerService.getFlower(idFlower);
+            call.enqueue(new Callback<Flower>() {
+                @Override
+                public void onResponse(Call<Flower> call, Response<Flower> response) {
+                    if (response.body() != null) {
+                        AppDatabase database = Room.databaseBuilder(getApplicationContext(),
+                                AppDatabase.class, "app-database").build();
+                        Flower flower = response.body();
+                        int quantity = Integer.parseInt(etQuantity.getText().toString());
+                        if(quantity > flower.getUnitInStock()){
+                            Toast.makeText(FlowerDetailActivity.this,"You can buy max " + flower.getUnitInStock(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if(quantity <= 0){
+                            Toast.makeText(FlowerDetailActivity.this,"quantity must be larger than 0 ", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        Cart cart = new Cart(1, flower.getFlowerName(),flower.getDescription(),flower.getImageUrl(),flower.getUnitPrice(),quantity,idFlower,idCustomer);
+                        AppExecutors.getsInstance().diskIO().execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    long maxId = database.cartDao().maxId();
+                                    cart.setId(maxId+1);
+                                    database.cartDao().insert(cart);
+                                    finish();
+                                } catch (Exception e){
+                                    Toast.makeText(FlowerDetailActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Flower> call, Throwable t) {
+                    Log.e("errorx",t.toString());
+                }
+            });
+        } catch (Exception e) {
+            Log.d("Loi", e.getMessage());
+        }
+
     }
 }
