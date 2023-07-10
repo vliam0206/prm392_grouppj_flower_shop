@@ -4,87 +4,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/round_item"
+    android:padding="10dp"
     tools:context=".ViewCartActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="127dp"
-        android:layout_height="97dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textViewFlowerName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Flower's Name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.058" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="127dp"
+            android:layout_height="97dp"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-    <TextView
-        android:id="@+id/textViewUnitPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price $"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.432"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        <TextView
+            android:id="@+id/textViewFlowerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Flower's Name"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_alignTop="@id/imageView" />
 
-    <Button
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:background="@drawable/round_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="+"
-        android:textColor="@color/black"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.401"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167" />
+        <TextView
+            android:id="@+id/textViewUnitPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price $"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_below="@id/textViewFlowerName" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:background="@drawable/round_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="-"
-        android:textColor="@color/black"
-        android:textSize="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.595"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.167" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:text="Quantity: "
+            android:layout_marginLeft="5dp"
+            android:textAlignment="center"
+            android:layout_toEndOf="@id/imageView"
+            android:layout_below="@id/textViewUnitPrice"
+            />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="27dp"
-        android:layout_height="20dp"
-        android:text="1"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161" />
+        <TextView
+            android:id="@+id/textViewQuantity"
+            android:layout_width="27dp"
+            android:layout_height="20dp"
+            android:text="1"
+            android:textAlignment="center"
+            android:layout_toEndOf="@id/textView"
+            android:layout_below="@id/textViewUnitPrice" />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,8 +36,13 @@ public class ViewCartActivity extends AppCompatActivity {
         cartFlowerList = findViewById(R.id.cartFlowerList);
         cartFlowerList.setLayoutManager(new LinearLayoutManager(this));
 
+
         cartAdapter = new CartAdapter(this);
         cartFlowerList.setAdapter(cartAdapter);
+
+        int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.item_spacing);
+        ItemSpacingDecoration itemSpacingDecoration = new ItemSpacingDecoration(spacingInPixels);
+        cartFlowerList.addItemDecoration(itemSpacingDecoration);
 
         database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "app-database").build();
@@ -57,9 +62,9 @@ public class ViewCartActivity extends AppCompatActivity {
                 AppExecutors.getsInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-//                        int position = viewHolder.getAdapterPosition();
-//                        List<Flower> flowers = cartAdapter.getFlowerList();
-//                        database.cartDao().delete(flowers.get(position));
+                        int position = viewHolder.getAdapterPosition();
+                        List<Cart> flowers = cartAdapter.getFlowerList();
+                        database.cartDao().delete(flowers.get(position));
                         retrieveFlowers();
                     }
                 });
