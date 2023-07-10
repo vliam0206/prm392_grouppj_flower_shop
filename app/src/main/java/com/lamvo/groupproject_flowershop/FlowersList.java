@@ -19,6 +19,7 @@ import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.models.Customer;
 import com.lamvo.groupproject_flowershop.models.Flower;
@@ -47,7 +48,6 @@ public class FlowersList extends AppCompatActivity {
         customerService = CustomerRepository.getCustomerService();
         listView = findViewById(R.id.listview);
         arrayFlowers = new ArrayList<>();
-
         getAdminAccount(AppConstants.ADMIN_ACCOUNT);
         getAllFlowers();
         Intent intent = getIntent();
@@ -120,6 +120,8 @@ public class FlowersList extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
+            Intent intent = new Intent(FlowersList.this, ViewCartActivity.class);
+            startActivity(intent);
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature

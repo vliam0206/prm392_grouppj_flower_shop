@@ -28,4 +28,7 @@ public interface CartDao {
     void delete (Cart cart);
     @Query("SELECT Max(id) From cart")
     long maxId();
+
+    @Query("SELECT * FROM cart WHERE idCustomer = :userId")
+    List<Cart> getAllFlowersByUserID(long userId);
 }
