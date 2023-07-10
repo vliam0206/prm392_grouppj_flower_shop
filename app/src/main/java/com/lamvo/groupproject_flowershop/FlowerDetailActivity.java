@@ -4,7 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +36,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.Date;
 
 public class FlowerDetailActivity extends AppCompatActivity {
     FlowerService flowerService;
@@ -60,6 +67,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertCart(id,idCus);
+                sendNotification();
             }
         });
     }
@@ -156,6 +164,25 @@ public class FlowerDetailActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.d("Loi", e.getMessage());
         }
+    }
 
+    private void sendNotification() {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+
+        Notification notification = new Notification.Builder(this)
+                .setContentTitle("Title")
+                .setContentText("Message")
+                .setSmallIcon(R.drawable.icons8_shopping_basket_add_96___)
+                .setColor(getResources().getColor(R.color.pink_pastel))
+                .build();
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null) {
+            notificationManager.notify(getNotificationId(), notification);
+        }
+    }
+
+    private int getNotificationId() {
+        return (int) new Date().getTime();
     }
 }
