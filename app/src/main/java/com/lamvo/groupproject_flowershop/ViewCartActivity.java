@@ -1,6 +1,12 @@
 package com.lamvo.groupproject_flowershop;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +25,7 @@ import com.lamvo.groupproject_flowershop.models.Flower;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewCartActivity extends AppCompatActivity {
+public class ViewCartActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RecyclerView cartFlowerList;
     private ArrayList<Flower> flowerArrayList;
@@ -27,12 +33,14 @@ public class ViewCartActivity extends AppCompatActivity {
     private AppDatabase database;
     long userId;
     CredentialService credentialService;
+    List<Cart> myCart;
+    TextView textviewTotal;
+    Button btnCheckout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
         cartFlowerList = findViewById(R.id.cartFlowerList);
         cartFlowerList.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,6 +57,8 @@ public class ViewCartActivity extends AppCompatActivity {
 
         credentialService = new CredentialService(this);
         userId = credentialService.getCurrentUserId();
+        btnCheckout =(Button)findViewById(R.id.btn_checkout);
+        btnCheckout.setOnClickListener(this);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -66,6 +76,7 @@ public class ViewCartActivity extends AppCompatActivity {
                         List<Cart> flowers = cartAdapter.getFlowerList();
                         database.cartDao().delete(flowers.get(position));
                         retrieveFlowers();
+                        runOnUiThread(() -> calcTotal(userId));
                     }
                 });
             }
@@ -76,6 +87,12 @@ public class ViewCartActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         retrieveFlowers();
+        try {
+          calcTotal(userId);
+        } catch (Exception e){
+            Log.e("e",e.getMessage());
+        }
+
     }
 
     private void retrieveFlowers() {
@@ -87,9 +104,36 @@ public class ViewCartActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         cartAdapter.setFlowerList(flowers);
+                        cartAdapter.notifyDataSetChanged();
                     }
                 });
             }
         });
+    }
+    private void calcTotal(long userId){
+        textviewTotal = findViewById(R.id.tvTotal);
+        AppExecutors.getsInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                myCart = database.cartDao().getAllFlowersByUserID(userId);
+                double total = 0;
+                for (Cart c:myCart) {
+                    total += c.getUnitPrice() *  c.getQuantity();
+                }
+                textviewTotal.setText(String.valueOf(total));
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == btnCheckout.getId()){
+            if(myCart.size() == 0){
+                Toast.makeText(ViewCartActivity.this,"Cart is empty",Toast.LENGTH_SHORT);
+                return;
+            }
+            Intent intent = new Intent(ViewCartActivity.this, CheckoutActivity.class);
+            startActivity(intent);
+        }
     }
 }

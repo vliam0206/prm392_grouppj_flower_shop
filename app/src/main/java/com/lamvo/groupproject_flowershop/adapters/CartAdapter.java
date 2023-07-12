@@ -36,6 +36,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.flowerName.setText(flowerList.get(position).getFlowerName());
         String unitPrice = String.valueOf(flowerList.get(position).getUnitPrice());
         holder.unitPrice.setText(unitPrice);
+        String quantity = String.valueOf(flowerList.get(position).getQuantity());
+        holder.quantity.setText(quantity);
+
     }
 
     public void setFlowerList(List<Cart> flowerList) {
@@ -56,13 +59,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView flowerName, unitPrice;
+        TextView flowerName, unitPrice,quantity;
 
         MyViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             flowerName = itemView.findViewById(R.id.textViewFlowerName);
             unitPrice = itemView.findViewById(R.id.textViewUnitPrice);
+            quantity = itemView.findViewById(R.id.textViewQuantity);
         }
     }
 }

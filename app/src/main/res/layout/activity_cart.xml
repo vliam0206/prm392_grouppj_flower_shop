@@ -35,7 +35,7 @@
             app:layout_constraintVertical_bias="0.318" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
@@ -45,20 +45,6 @@
             android:textSize="20dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewTotal" />
-
-        <Button
-            android:layout_width="122dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="90dp"
-            android:background="@drawable/round_item"
-            android:backgroundTint="#e9769d"
-            android:text="Check out"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -72,4 +58,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.63" />
 
+    <Button
+        android:id="@+id/btn_checkout"
+        android:layout_width="122dp"
+        android:layout_height="48dp"
+        android:background="@drawable/round_item"
+        android:backgroundTint="#e9769d"
+        android:text="Check out"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
+        app:layout_constraintTop_toBottomOf="@id/cartFlowerList" />
 </androidx.constraintlayout.widget.ConstraintLayout>
