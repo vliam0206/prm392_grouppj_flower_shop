@@ -26,6 +26,7 @@ import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.activities.ChatActivity;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.db.AppExecutors;
 import com.lamvo.groupproject_flowershop.models.Cart;
@@ -45,6 +46,8 @@ public class FlowerDetailActivity extends AppCompatActivity {
     TextView tvFlowerName, tvFlowerDescription, tvFlowerPrice;
     EditText etQuantity;
     Button btnAdd;
+    CredentialService credentialService;
+    long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +65,12 @@ public class FlowerDetailActivity extends AppCompatActivity {
         if (id != -1) {
             viewFlower(id);
         }
-        long idCus = intent.getLongExtra("idCus", -1);
+        credentialService = new CredentialService(FlowerDetailActivity.this);
+        long userId = credentialService.getCurrentUserId();
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertCart(id,idCus);
+                insertCart(id,userId);
                 sendNotification();
             }
         });
