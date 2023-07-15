@@ -25,8 +25,9 @@
         android:layout_marginTop="8dp"
         android:paddingStart="10dp"
         android:text="Flower Name"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textColor="@color/pink"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/ivFlower"
         tools:layout_editor_absoluteX="16dp"
         android:layout_marginHorizontal="10dp"/>
@@ -39,8 +40,6 @@
         android:text="Flower Description"
         android:textColor="@color/pink"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-light"
-        android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/tvFlowerName"
         tools:layout_editor_absoluteX="16dp"
         android:layout_marginHorizontal="10dp"/>
@@ -50,10 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingStart="10dp"
-        android:text="200.000"
+        android:text="đ200.000"
         android:textSize="20sp"
         android:textColor="@color/pink"
-        android:fontFamily="sans-serif-medium"
         app:layout_constraintTop_toBottomOf="@+id/tvFlowerDescription"
         tools:layout_editor_absoluteX="16dp"
         android:layout_marginHorizontal="10dp"/>
@@ -61,33 +59,31 @@
     <EditText
         android:id="@+id/etQuantity"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/image_border"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/pink"
         android:ems="10"
-        android:hint="Quantity"
-        android:inputType="number"
-        android:paddingStart="10dp"
-        android:textColorHint="@color/pink"
+        android:hint="Số lượng"
         android:textSize="20sp"
+        android:inputType="number"
+        android:textColorHint="@color/pink"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivAdd"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="10dp"/>
 
-    <ImageView
-        android:id="@+id/ivAdd"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/button_plus_radius"
-        android:contentDescription="add to cart button"
-        android:padding="10dp"
+    <Button
+        android:id="@+id/btnAdd"
+        android:background="@color/pink"
+        android:textColor="@color/white"
+        android:padding="10sp"
         android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add to cart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/plus" />
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="20dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
