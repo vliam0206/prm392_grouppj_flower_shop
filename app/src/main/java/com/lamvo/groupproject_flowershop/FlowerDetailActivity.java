@@ -31,7 +31,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
     ImageView ivFlower;
     TextView tvFlowerName, tvFlowerDescription, tvFlowerPrice;
     EditText etQuantity;
-    ImageView ivAdd;
+    Button btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
         tvFlowerDescription = (TextView) findViewById(R.id.tvFlowerDescription);
         tvFlowerPrice = (TextView) findViewById(R.id.tvFlowerPrice);
         etQuantity = (EditText) findViewById(R.id.etQuantity);
-        ivAdd = (ImageView) findViewById(R.id.ivAdd);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
         flowerService = FlowerRepository.getFlowerService();
         Intent intent = getIntent();
         long id = intent.getLongExtra("id", -1);
@@ -62,7 +62,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
                         Picasso.get().load(flower.getImageUrl()).into(ivFlower);
                         tvFlowerName.setText(flower.getFlowerName());
                         tvFlowerDescription.setText(flower.getDescription());
-                        tvFlowerPrice.setText("$ " + flower.getUnitPrice());
+                        tvFlowerPrice.setText("Price: " + flower.getUnitPrice() + "VNĐ");
                     }
                 }
 
