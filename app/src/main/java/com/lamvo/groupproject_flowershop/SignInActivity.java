@@ -138,7 +138,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         startActivity(new Intent(SignInActivity.this, AdminActivity.class));
                         finish();
                     } else {
-                        startActivity(new Intent(SignInActivity.this, FlowersList.class));
+                        Intent intent = new Intent(SignInActivity.this,FlowersList.class);
+                        intent.putExtra("idCustomer", customer.getId());
+                        startActivity(intent);
                         finish();
                     }
                 }

@@ -61,7 +61,7 @@ public class ListAdapter extends BaseAdapter {
             convertView = inflater.inflate(layout, null);
 
             holder.tvName = convertView.findViewById(R.id.tvName);
-            holder.tvDescription = convertView.findViewById(R.id.tvShortDescription);
+            //holder.tvDescription = convertView.findViewById(R.id.tvShortDescription);
             holder.tvPrice = convertView.findViewById(R.id.tvPrice);
             holder.imgAddToCart = convertView.findViewById(R.id.imageviewAddToCart);
             holder.imgThubnail = convertView.findViewById(R.id.imgThubnail);
@@ -72,8 +72,8 @@ public class ListAdapter extends BaseAdapter {
 
         Flower flower = flowerArrayList.get(position);
         holder.tvName.setText(flower.getFlowerName());
-        holder.tvDescription.setText(flower.getDescription());
-        holder.tvPrice.setText("Price: " + flower.getUnitPrice() + " VNĐ");
+//      holder.tvDescription.setText(flower.getDescription());
+        holder.tvPrice.setText("$ " + flower.getUnitPrice());
         Picasso.get().load(flower.getImageUrl()).into(holder.imgThubnail);
 
         //Event handler for add a flower to cart
