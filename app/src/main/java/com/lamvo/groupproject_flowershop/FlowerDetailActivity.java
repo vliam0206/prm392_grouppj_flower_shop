@@ -114,6 +114,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
+            startActivity(new Intent(FlowerDetailActivity.this, ViewCartActivity.class));
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature

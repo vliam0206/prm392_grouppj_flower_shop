@@ -120,8 +120,7 @@ public class FlowersList extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
-            Intent intent = new Intent(FlowersList.this, ViewCartActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(FlowersList.this, ViewCartActivity.class));
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature

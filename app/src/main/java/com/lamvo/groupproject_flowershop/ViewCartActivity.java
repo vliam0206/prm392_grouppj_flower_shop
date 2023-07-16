@@ -3,6 +3,8 @@ package com.lamvo.groupproject_flowershop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.adapters.CartAdapter;
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
@@ -135,5 +138,30 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
             Intent intent = new Intent(ViewCartActivity.this, CheckoutActivity.class);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sub_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_home) {
+            startActivity(new Intent(ViewCartActivity.this, FlowersList.class));
+        }
+        else if (item.getItemId() == R.id.menu_cart) {
+            // start view cat activity
+            startActivity(new Intent(ViewCartActivity.this, ViewCartActivity.class));
+        }
+        else if (item.getItemId() == R.id.menu_logout) {
+            // process for logout feature
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(ViewCartActivity.this, SignInActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

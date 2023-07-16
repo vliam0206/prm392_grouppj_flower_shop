@@ -4,28 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ChatActivity"
-    android:background="@color/pink_pastel">
+    android:background="@color/pink_pastel"
+    tools:context=".activities.ChatActivity">
+
     <ListView
         android:id="@+id/lvChatScreen"
         android:layout_width="match_parent"
         android:layout_height="500dp"
-        android:paddingTop="10dp"
-        android:paddingHorizontal="10dp"/>
+        android:paddingHorizontal="10dp"
+        android:paddingTop="10dp" />
+
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="5dp"
         android:background="@color/white"
         app:cardCornerRadius="10dp"
-        app:cardElevation="20dp"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="5dp">
+        app:cardElevation="20dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
             android:background="@color/white"
-            android:gravity="center_horizontal"
-            android:layout_alignParentBottom="true">
+            android:gravity="center_horizontal">
 
             <EditText
                 android:id="@+id/etChatContent"
@@ -33,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/nothing"
                 android:hint="Type a message..."
-                android:paddingLeft="20dp"/>
+                android:paddingLeft="20dp" />
 
             <ImageButton
                 android:id="@+id/btnSendChat"
@@ -41,8 +44,8 @@
                 android:layout_height="50dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
-                android:src="@mipmap/ic_send_pink"
-                android:background="@color/nothing"/>
+                android:background="@color/nothing"
+                android:src="@mipmap/ic_send_pink" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>
