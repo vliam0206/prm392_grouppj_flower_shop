@@ -3,15 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_chat"
-        app:showAsAction="always"
         android:icon="@drawable/ic_baseline_chat_24"
-        android:title="Chat"/>
+        android:title="Chat"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_cart"
-        app:showAsAction="always"
         android:icon="@drawable/ic_baseline_shopping_cart_24_white"
-        android:title="View cart"/>
+        android:title="View cart"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_map"
+        android:icon="@drawable/map_icon_white"
+        android:title="Map"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_logout"
-        android:title="Logout"/>
+        android:title="Logout" />
 </menu>
