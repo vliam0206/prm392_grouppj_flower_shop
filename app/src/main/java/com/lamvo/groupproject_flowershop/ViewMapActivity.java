@@ -6,11 +6,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationRequest;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -26,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -168,5 +172,27 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
                 getCurrentLocation();
             }
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sub_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_home) {
+            startActivity(new Intent(ViewMapActivity.this, FlowersList.class));
+        } else if (item.getItemId() == R.id.menu_cart) {
+            // start view cat activity
+            startActivity(new Intent(ViewMapActivity.this, ViewCartActivity.class));
+        } else if (item.getItemId() == R.id.menu_logout) {
+            // process for logout feature
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(ViewMapActivity.this, SignInActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
