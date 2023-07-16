@@ -128,6 +128,10 @@ public class FlowersList extends AppCompatActivity {
             startActivity(new Intent(FlowersList.this, SignInActivity.class));
             finish();
         }
+        else if (item.getItemId() == R.id.menu_map) {
+            // start to view map
+            startActivity(new Intent(FlowersList.this, ViewMapActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
     private void getAdminAccount(String adminEmail) {
