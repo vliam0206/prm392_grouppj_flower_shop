@@ -41,6 +41,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.1.0'
     implementation 'androidx.room:room-common:2.5.2'
     implementation fileTree(dir: 'C:\\Users\\Thuong\\Downloads\\zpdk_v2.0.4\\zpdk_v2.0.4\\android', include: ['*.aar', '*.jar'], exclude: [])
+    implementation files('\\libraries\\zpdk_v2.0.4\\android')
+    implementation fileTree(dir: 'C:\\Users\\Lam Vo\\Downloads\\libraries\\zpdk_v2.0.4\\android', include: ['*.aar', '*.jar'], exclude: [])
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'

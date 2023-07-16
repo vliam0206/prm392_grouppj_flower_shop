@@ -1,5 +1,6 @@
 package com.lamvo.groupproject_flowershop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -7,12 +8,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.Helper.AppInfo;
 import com.lamvo.groupproject_flowershop.Helper.CreateOrder;
+import com.lamvo.groupproject_flowershop.activities.ChatActivity;
 import com.lamvo.groupproject_flowershop.apis.OderDetailRepository;
 import com.lamvo.groupproject_flowershop.apis.OrderDetailService;
 import com.lamvo.groupproject_flowershop.apis.OrderRepository;
@@ -395,5 +400,29 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sub_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_home) {
+            startActivity(new Intent(CheckoutActivity.this, FlowersList.class));
+        }
+        else if (item.getItemId() == R.id.menu_cart) {
+            // start view cat activity
+            startActivity(new Intent(CheckoutActivity.this, ViewCartActivity.class));
+        }
+        else if (item.getItemId() == R.id.menu_logout) {
+            // process for logout feature
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(CheckoutActivity.this, SignInActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
