@@ -39,6 +39,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class FlowerDetailActivity extends AppCompatActivity {
     FlowerService flowerService;
@@ -137,16 +139,21 @@ public class FlowerDetailActivity extends AppCompatActivity {
                         AppDatabase database = Room.databaseBuilder(getApplicationContext(),
                                 AppDatabase.class, "app-database").build();
                         Flower flower = response.body();
-                        int quantity = Integer.parseInt(etQuantity.getText().toString());
+                        int quantity = 0;
+                        if(etQuantity.getText().toString().trim().equals("")){
+                            quantity = 0;
+                        } else {
+                            quantity = Integer.parseInt(etQuantity.getText().toString());
+                        }
                         if(quantity > flower.getUnitInStock()){
                             Toast.makeText(FlowerDetailActivity.this,"You can buy max " + flower.getUnitInStock(), Toast.LENGTH_SHORT).show();
                             return;
                         }
                         if(quantity <= 0){
-                            Toast.makeText(FlowerDetailActivity.this,"quantity must be larger than 0 ", Toast.LENGTH_SHORT).show();
+                            etQuantity.setError("Quantity must be larger than 0");
                             return;
                         }
-                        Cart cart = new Cart(1, flower.getFlowerName(),flower.getDescription(),flower.getImageUrl(),flower.getUnitPrice(),quantity,idFlower,idCustomer);
+                         Cart cart = new Cart(1, flower.getFlowerName(),flower.getDescription(),flower.getImageUrl(),flower.getUnitPrice(),quantity,idFlower,idCustomer);
                         AppExecutors.getsInstance().diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
@@ -157,6 +164,26 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                     int quantity = Integer.parseInt(etQuantity.getText().toString());
                                     sendAddToCartNotification(flower.getFlowerName(), quantity);
                                     finish();
+                                    List<Cart> cartList = database.cartDao().getAllFlower();
+                                    long cartId = cart.getIdFlower();
+                                    List<Cart> cartx =  cartList.stream().filter(c -> c.getIdFlower() == cartId).collect(Collectors.toList());
+                                    if(cartx.isEmpty()){
+                                        cart.setId(maxId+1);
+                                        database.cartDao().insert(cart);
+                                        finish();
+                                    } else {
+                                        int quantity = cart.getQuantity();
+                                        for (Cart cart:cartx ) {
+                                              cart.setQuantity(cart.getQuantity() + quantity );
+                                              AppExecutors.getsInstance().diskIO().execute(new Runnable() {
+                                                  @Override
+                                                  public void run() {
+                                                      database.cartDao().update(cart);
+                                                      finish();
+                                                  }
+                                              });
+                                        }
+                                    }
                                 } catch (Exception e){
                                     Toast.makeText(FlowerDetailActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                                 }

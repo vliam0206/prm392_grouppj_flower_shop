@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.models.Cart;
 import com.lamvo.groupproject_flowershop.models.Flower;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,7 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.unitPrice.setText(unitPrice);
         String quantity = String.valueOf(flowerList.get(position).getQuantity());
         holder.quantity.setText(quantity);
-
+        Picasso.get().load(flowerList.get(position).getImageUrl()).into(holder.img);
     }
 
     public void setFlowerList(List<Cart> flowerList) {
@@ -60,13 +62,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         TextView flowerName, unitPrice,quantity;
-
+        ImageView img;
         MyViewHolder(@NonNull final View itemView) {
             super(itemView);
 
             flowerName = itemView.findViewById(R.id.textViewFlowerName);
             unitPrice = itemView.findViewById(R.id.textViewUnitPrice);
             quantity = itemView.findViewById(R.id.textViewQuantity);
+            img = itemView.findViewById(R.id.imageCart);
         }
     }
 }
