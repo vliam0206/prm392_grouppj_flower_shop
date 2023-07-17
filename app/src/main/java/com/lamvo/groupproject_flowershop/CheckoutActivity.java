@@ -102,7 +102,7 @@ public class CheckoutActivity extends AppCompatActivity {
                              for (Cart c:myCart) {
                                  total += c.getUnitPrice() *  c.getQuantity();
                              }
-                            Order order = new Order(maxId + 1, new Date(),new Date(),total, OrderStatus.UNPAID.toString());
+                            Order order = new Order(maxId + 1, new Date().toString(),new Date().toString(),total, OrderStatus.UNPAID.toString());
                             Call<Order> orderCreateCall = orderService.createOrder(order);
                             orderCreateCall.enqueue(new Callback<Order>() {
                                 @Override
@@ -158,7 +158,7 @@ public class CheckoutActivity extends AppCompatActivity {
                              for (Cart c:myCart) {
                                  total += c.getUnitPrice() *  c.getQuantity();
                              }
-                             Order order = new Order(idMax + 1,userId, new Date(),new Date(),total, OrderStatus.UNPAID.toString());
+                             Order order = new Order(idMax + 1,userId, new Date().toString(),new Date().toString(),total, OrderStatus.UNPAID.toString());
                              final long orderId = idMax + 1;
                              Call<Order> orderCreateCall = orderService.createOrder(order);
                              orderCreateCall.enqueue(new Callback<Order>() {
@@ -258,7 +258,7 @@ public class CheckoutActivity extends AppCompatActivity {
                                                         for (Cart c:carts) {
                                                             total += c.getUnitPrice() *  c.getQuantity();
                                                         }
-                                                        Order order = new Order(maxId + 1,userId, new Date(),new Date(),total, OrderStatus.PAID.toString());
+                                                        Order order = new Order(maxId + 1,userId, new Date().toString(),new Date().toString(),total, OrderStatus.PAID.toString());
                                                         Call<Order> orderCreateCall = orderService.createOrder(order);
                                                         orderCreateCall.enqueue(new Callback<Order>() {
                                                             @Override
@@ -314,7 +314,7 @@ public class CheckoutActivity extends AppCompatActivity {
                                                         for (Cart c:carts) {
                                                             total += c.getUnitPrice() *  c.getQuantity();
                                                         }
-                                                        Order order = new Order(idMax + 1,userId, new Date(),new Date(),total, OrderStatus.PAID.toString());
+                                                        Order order = new Order(idMax + 1,userId, new Date().toString(),new Date().toString(),total, OrderStatus.PAID.toString());
                                                         final long orderId = idMax + 1;
                                                         Call<Order> orderCreateCall = orderService.createOrder(order);
                                                             orderCreateCall.enqueue(new Callback<Order>() {
