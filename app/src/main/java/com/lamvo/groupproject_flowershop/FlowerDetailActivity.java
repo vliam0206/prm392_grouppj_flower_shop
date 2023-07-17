@@ -137,7 +137,12 @@ public class FlowerDetailActivity extends AppCompatActivity {
                         AppDatabase database = Room.databaseBuilder(getApplicationContext(),
                                 AppDatabase.class, "app-database").build();
                         Flower flower = response.body();
-                        int quantity = Integer.parseInt(etQuantity.getText().toString());
+                        int quantity = 0;
+                        if(etQuantity.getText().toString().trim().equals("")){
+                            quantity = 0;
+                        } else {
+                            quantity = Integer.parseInt(etQuantity.getText().toString());
+                        }
                         if(quantity > flower.getUnitInStock()){
                             Toast.makeText(FlowerDetailActivity.this,"You can buy max " + flower.getUnitInStock(), Toast.LENGTH_SHORT).show();
                             return;
