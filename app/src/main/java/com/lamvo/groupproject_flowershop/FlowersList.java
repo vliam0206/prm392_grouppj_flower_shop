@@ -27,11 +27,9 @@ import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
-import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
-import com.lamvo.groupproject_flowershop.apis.CustomerService;
-import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
-import com.lamvo.groupproject_flowershop.apis.FlowerService;
+
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
+
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.models.Cart;

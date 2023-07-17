@@ -48,21 +48,6 @@
             android:name=".ViewMapActivity"
             android:exported="false" />
         <activity
-            android:name=".CheckoutActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <data
-                    android:host="app"
-                    android:scheme="demozpdk" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ViewCartActivity"
             android:exported="false" />
         <activity
@@ -88,7 +73,13 @@
             android:exported="false" />
         <activity
             android:name=".TestConnectDBApiActivity"
-            android:exported="false" />
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
