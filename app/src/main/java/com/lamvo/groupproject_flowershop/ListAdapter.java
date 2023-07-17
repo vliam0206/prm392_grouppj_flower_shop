@@ -80,9 +80,10 @@ public class ListAdapter extends BaseAdapter {
         holder.imgAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MainActivity.class);
+                Intent intent = new Intent(context, FlowerDetailActivity.class);
                 Log.d("myTag", "onClick() returned: " + flowerArrayList.get(position).getId());
 //                intent.putExtra("choosenFlower", flowerArrayList.get(position));
+                intent.putExtra("id", flowerArrayList.get(position).getId());
                 context.startActivity(intent);
             }
         });
