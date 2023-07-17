@@ -5,27 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.lamvo.groupproject_flowershop.R;
-import com.lamvo.groupproject_flowershop.activities.ChatActivity;
-import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
-import com.lamvo.groupproject_flowershop.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.app_services.apis.FlowerRepository;
+import com.lamvo.groupproject_flowershop.app_services.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.db.AppExecutors;
@@ -39,6 +38,7 @@ import retrofit2.Response;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;
+import java.util.List;
 
 public class FlowerDetailActivity extends AppCompatActivity {
     FlowerService flowerService;
@@ -48,6 +48,9 @@ public class FlowerDetailActivity extends AppCompatActivity {
     ImageView ivAdd;
     CredentialService credentialService;
     long userId;
+    private static final String CHANNEL_ID = "notification_channel";
+    private static final CharSequence CHANNEL_NAME = "Notification Channel";
+    private static final String CHANNEL_DESCRIPTION = "Channel for notifications";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +74,6 @@ public class FlowerDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 insertCart(id,userId);
-                sendNotification();
             }
         });
     }
@@ -152,6 +154,8 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                     long maxId = database.cartDao().maxId();
                                     cart.setId(maxId+1);
                                     database.cartDao().insert(cart);
+                                    int quantity = Integer.parseInt(etQuantity.getText().toString());
+                                    sendAddToCartNotification(flower.getFlowerName(), quantity);
                                     finish();
                                 } catch (Exception e){
                                     Toast.makeText(FlowerDetailActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
@@ -163,27 +167,42 @@ public class FlowerDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Flower> call, Throwable t) {
-                    Log.e("errorx",t.toString());
+                    Log.e("error",t.toString());
                 }
             });
         } catch (Exception e) {
             Log.d("Loi", e.getMessage());
         }
     }
-
-    private void sendNotification() {
+    private void sendAddToCartNotification(String flowerName, int quantity) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 
-        Notification notification = new Notification.Builder(this)
-                .setContentTitle("Title")
-                .setContentText("Message")
-                .setSmallIcon(R.drawable.icons8_shopping_basket_add_96___)
-                .setColor(getResources().getColor(R.color.pink_pastel))
+        Notification.Builder notificationBuilder;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME,
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription(CHANNEL_DESCRIPTION);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+            notificationBuilder = new Notification.Builder(this, CHANNEL_ID);
+        } else {
+            notificationBuilder = new Notification.Builder(this);
+        }
+
+        Notification notification = notificationBuilder
+                .setContentTitle("Added to Cart!")
+                .setContentText("Added " + quantity + " " + flowerName + " to cart")
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setColor(getResources().getColor(R.color.white))
                 .build();
 
-        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager notificationManager = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            notificationManager = getSystemService(NotificationManager.class);
+        }
         if (notificationManager != null) {
-            notificationManager.notify(getNotificationId(), notification);
+            int notificationId = getNotificationId();
+            notificationManager.notify(notificationId, notification);
         }
     }
 
