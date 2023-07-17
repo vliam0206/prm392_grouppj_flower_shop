@@ -23,8 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.lamvo.groupproject_flowershop.app_services.apis.FlowerRepository;
-import com.lamvo.groupproject_flowershop.app_services.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
+import com.lamvo.groupproject_flowershop.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.db.AppExecutors;
@@ -172,7 +172,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                         database.cartDao().insert(cart);
                                         finish();
                                     } else {
-                                        int quantity = cart.getQuantity();
+//                                        int quantity = cart.getQuantity();
                                         for (Cart cart:cartx ) {
                                               cart.setQuantity(cart.getQuantity() + quantity );
                                               AppExecutors.getsInstance().diskIO().execute(new Runnable() {

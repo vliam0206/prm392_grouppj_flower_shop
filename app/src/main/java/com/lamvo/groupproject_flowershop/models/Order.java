@@ -5,12 +5,12 @@ import java.util.Date;
 public class Order {
     private long id;
     private long customerId;
-    private Date orderedDate;
-    private Date shippedDate;
+    private String orderedDate;
+    private String shippedDate;
     private double total;
     private String orderStatus;
 
-    public Order(long customerId, Date orderedDate, Date shippedDate, double total, String orderStatus) {
+    public Order(long customerId, String orderedDate, String shippedDate, double total, String orderStatus) {
         this.customerId = customerId;
         this.orderedDate = orderedDate;
         this.shippedDate = shippedDate;
@@ -18,7 +18,7 @@ public class Order {
         this.orderStatus = orderStatus;
     }
 
-    public Order(long id, long customerId, Date orderedDate, Date shippedDate, double total, String orderStatus) {
+    public Order(long id, long customerId, String orderedDate, String shippedDate, double total, String orderStatus) {
         this.id = id;
         this.customerId = customerId;
         this.orderedDate = orderedDate;
@@ -43,19 +43,19 @@ public class Order {
         this.customerId = customerId;
     }
 
-    public Date getOrderedDate() {
+    public String getOrderedDate() {
         return orderedDate;
     }
 
-    public void setOrderedDate(Date orderedDate) {
+    public void setOrderedDate(String orderedDate) {
         this.orderedDate = orderedDate;
     }
 
-    public Date getShippedDate() {
+    public String getShippedDate() {
         return shippedDate;
     }
 
-    public void setShippedDate(Date shippedDate) {
+    public void setShippedDate(String shippedDate) {
         this.shippedDate = shippedDate;
     }
 
