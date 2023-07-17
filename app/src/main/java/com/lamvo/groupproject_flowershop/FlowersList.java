@@ -23,10 +23,10 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.activities.ChatActivity;
-import com.lamvo.groupproject_flowershop.app_services.apis.CustomerRepository;
-import com.lamvo.groupproject_flowershop.app_services.apis.CustomerService;
-import com.lamvo.groupproject_flowershop.app_services.apis.FlowerRepository;
-import com.lamvo.groupproject_flowershop.app_services.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
+import com.lamvo.groupproject_flowershop.apis.CustomerService;
+import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
+import com.lamvo.groupproject_flowershop.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.models.Cart;
