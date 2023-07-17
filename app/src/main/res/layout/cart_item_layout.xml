@@ -38,7 +38,7 @@
             android:layout_below="@id/textViewFlowerName" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="Quantity: "
@@ -54,7 +54,7 @@
             android:layout_height="20dp"
             android:text="1"
             android:textAlignment="center"
-            android:layout_toEndOf="@id/textView"
+            android:layout_toEndOf="@id/tvQuantity"
             android:layout_below="@id/textViewUnitPrice" />
 
     </RelativeLayout>

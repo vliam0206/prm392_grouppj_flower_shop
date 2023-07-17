@@ -26,6 +26,7 @@ import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.activities.ChatActivity;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
+import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.db.AppExecutors;
 import com.lamvo.groupproject_flowershop.models.Cart;
@@ -44,7 +45,9 @@ public class FlowerDetailActivity extends AppCompatActivity {
     ImageView ivFlower;
     TextView tvFlowerName, tvFlowerDescription, tvFlowerPrice;
     EditText etQuantity;
-    Button btnAdd;
+    ImageView ivAdd;
+    CredentialService credentialService;
+    long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,18 +58,19 @@ public class FlowerDetailActivity extends AppCompatActivity {
         tvFlowerDescription = (TextView) findViewById(R.id.tvFlowerDescription);
         tvFlowerPrice = (TextView) findViewById(R.id.tvFlowerPrice);
         etQuantity = (EditText) findViewById(R.id.etQuantity);
-        btnAdd = (Button) findViewById(R.id.btnAdd);
+        ivAdd = (ImageView) findViewById(R.id.ivAdd);
         flowerService = FlowerRepository.getFlowerService();
         Intent intent = getIntent();
         long id = intent.getLongExtra("id", -1);
         if (id != -1) {
             viewFlower(id);
         }
-        long idCus = intent.getLongExtra("idCus", -1);
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        credentialService = new CredentialService(FlowerDetailActivity.this);
+        long userId = credentialService.getCurrentUserId();
+        ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertCart(id,idCus);
+                insertCart(id,userId);
                 sendNotification();
             }
         });
@@ -83,7 +87,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
                         Picasso.get().load(flower.getImageUrl()).into(ivFlower);
                         tvFlowerName.setText(flower.getFlowerName());
                         tvFlowerDescription.setText(flower.getDescription());
-                        tvFlowerPrice.setText("Price: " + flower.getUnitPrice() + "VNĐ");
+                        tvFlowerPrice.setText("$ " + flower.getUnitPrice());
                     }
                 }
 
@@ -110,6 +114,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
+            startActivity(new Intent(FlowerDetailActivity.this, ViewCartActivity.class));
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature

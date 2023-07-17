@@ -120,14 +120,17 @@ public class FlowersList extends AppCompatActivity {
         }
         else if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
-            Intent intent = new Intent(FlowersList.this, ViewCartActivity.class);
-            startActivity(intent);
+            startActivity(new Intent(FlowersList.this, ViewCartActivity.class));
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(FlowersList.this, SignInActivity.class));
             finish();
+        }
+        else if (item.getItemId() == R.id.menu_map) {
+            // start to view map
+            startActivity(new Intent(FlowersList.this, ViewMapActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
