@@ -172,7 +172,6 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                         database.cartDao().insert(cart);
                                         finish();
                                     } else {
-//                                        int quantity = cart.getQuantity();
                                         for (Cart cart:cartx ) {
                                               cart.setQuantity(cart.getQuantity() + quantity );
                                               AppExecutors.getsInstance().diskIO().execute(new Runnable() {
