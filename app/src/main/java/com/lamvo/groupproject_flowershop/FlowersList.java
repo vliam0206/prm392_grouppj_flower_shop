@@ -27,6 +27,9 @@ import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
+
+import com.lamvo.groupproject_flowershop.app_services.CredentialService;
+
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.models.Cart;
@@ -52,7 +55,7 @@ public class FlowersList extends AppCompatActivity {
     private static final String CHANNEL_ID = "notification_channel";
     private static final CharSequence CHANNEL_NAME = "Notification Channel";
     private static final String CHANNEL_DESCRIPTION = "Channel for notifications";
-
+    CredentialService credentialService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +67,11 @@ public class FlowersList extends AppCompatActivity {
         arrayFlowers = new ArrayList<>();
         getAdminAccount(AppConstants.ADMIN_ACCOUNT);
         getAllFlowers();
-        sendTotalProductInCartNotification();
         Intent intent = getIntent();
         long idCus = intent.getLongExtra("idCustomer", -1);
+        credentialService = new CredentialService(this);
+        long userId = credentialService.getCurrentUserId();
+        sendTotalProductInCartNotification(userId);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -167,7 +172,7 @@ public class FlowersList extends AppCompatActivity {
         });
     }
 
-    private void sendTotalProductInCartNotification() {
+    private void sendTotalProductInCartNotification(long idCus) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         AppDatabase database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "app-database").build();
@@ -175,20 +180,32 @@ public class FlowersList extends AppCompatActivity {
         AsyncTask<Void, Void, List<Cart>> databaseTask = new AsyncTask<Void, Void, List<Cart>>() {
             @Override
             protected List<Cart> doInBackground(Void... voids) {
-                return database.cartDao().getAllFlower();
+                return database.cartDao().getAllFlowersByUserID(idCus);
             }
 
             @Override
             protected void onPostExecute(List<Cart> flowers) {
                 super.onPostExecute(flowers);
-                showNotification(flowers);
+                showNotification(flowers, idCus);
             }
         };
 
         databaseTask.execute();
     }
 
-    private void showNotification(List<Cart> flowers) {
+    private void showNotification(List<Cart> flowers, long idCus) {
+        int totalQuantity = 0;
+        for (Cart cart : flowers) {
+            totalQuantity += cart.getQuantity();
+        }
+
+        if (totalQuantity == 0) {
+            // No need to show notification if totalQuantity is 0
+            return;
+        }
+
+        // Notification code
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         Notification.Builder notificationBuilder;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME,
@@ -208,7 +225,7 @@ public class FlowersList extends AppCompatActivity {
 
         Notification notification = notificationBuilder
                 .setContentTitle("Flowers need to be paid!")
-                .setContentText("You have " + flowers.size() + " flowers in the cart to check out. Check the cart!")
+                .setContentText("You have " + totalQuantity + " flowers in the cart to check out. Check the cart!")
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setColor(getResources().getColor(R.color.white))
                 .build();
@@ -222,6 +239,7 @@ public class FlowersList extends AppCompatActivity {
             notificationManager.notify(notificationId, notification);
         }
     }
+
 
 
 
