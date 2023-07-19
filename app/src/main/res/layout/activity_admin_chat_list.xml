@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.AdminChatListActivity"
-    android:orientation="vertical"
-    android:background="@color/pink_pastel">
+    android:orientation="vertical">
     <TextView
+        android:fontFamily="cursive"
+        android:textColor="@color/pink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Customers"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="20dp"
-        android:textSize="30dp"
+        android:textSize="32dp"
         android:textStyle="bold"/>
     <ListView
         android:id="@+id/lvCustomerList"

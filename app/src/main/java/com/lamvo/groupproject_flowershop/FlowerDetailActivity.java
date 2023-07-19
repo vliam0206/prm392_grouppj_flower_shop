@@ -47,7 +47,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
     ImageView ivFlower;
     TextView tvFlowerName, tvFlowerDescription, tvFlowerPrice;
     EditText etQuantity;
-    ImageView ivAdd;
+    ImageView ivAdd, ivPlus, ivMinus;
     CredentialService credentialService;
     long userId;
     private static final String CHANNEL_ID = "notification_channel";
@@ -64,6 +64,8 @@ public class FlowerDetailActivity extends AppCompatActivity {
         tvFlowerPrice = (TextView) findViewById(R.id.tvFlowerPrice);
         etQuantity = (EditText) findViewById(R.id.etQuantity);
         ivAdd = (ImageView) findViewById(R.id.ivAdd);
+        ivPlus = (ImageView) findViewById(R.id.ivPlus);
+        ivMinus = (ImageView) findViewById(R.id.ivMinus);
         flowerService = FlowerRepository.getFlowerService();
         Intent intent = getIntent();
         long id = intent.getLongExtra("id", -1);
@@ -72,6 +74,22 @@ public class FlowerDetailActivity extends AppCompatActivity {
         }
         credentialService = new CredentialService(FlowerDetailActivity.this);
         long userId = credentialService.getCurrentUserId();
+        ivPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(etQuantity.getText().toString());
+                quantity++;
+                etQuantity.setText(quantity + "");
+            }
+        });
+        ivMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(etQuantity.getText().toString());
+                quantity--;
+                etQuantity.setText(quantity + "");
+            }
+        });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
