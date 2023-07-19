@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.activities.ChatActivity;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
@@ -45,6 +46,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FlowersList extends AppCompatActivity {
+    BottomNavigationView bottomNavigationView;
 
     static ListView listView;
     ArrayList<Flower> arrayFlowers;
@@ -80,6 +82,20 @@ public class FlowersList extends AppCompatActivity {
                 intent.putExtra("idCus",idCus);
                 startActivity(intent);
             }
+        });
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if(item.getItemId()==R.id.menu_home){
+                startActivity(new Intent(FlowersList.this, FlowersList.class));
+            }
+            if(item.getItemId()==R.id.menu_order){
+                startActivity(new Intent(FlowersList.this, FlowersList.class));
+            }
+            if(item.getItemId()==R.id.menu_map){
+                startActivity(new Intent(FlowersList.this, ViewMapActivity.class));
+            }
+            return true;
         });
     }
 
@@ -147,10 +163,6 @@ public class FlowersList extends AppCompatActivity {
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(FlowersList.this, SignInActivity.class));
             finish();
-        }
-        else if (item.getItemId() == R.id.menu_map) {
-            // start to view map
-            startActivity(new Intent(FlowersList.this, ViewMapActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

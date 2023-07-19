@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.Helper.AppInfo;
 import com.lamvo.groupproject_flowershop.Helper.CreateOrder;
@@ -48,6 +49,7 @@ import vn.zalopay.sdk.ZaloPaySDK;
 import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class CheckoutActivity extends AppCompatActivity {
+    BottomNavigationView bottomNavigationView;
     Button btnPayAfter;
     long userId;
     CredentialService credentialService;
@@ -84,6 +86,20 @@ public class CheckoutActivity extends AppCompatActivity {
                 payNow();
                 deleteCart();
             }
+        });
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if(item.getItemId()==R.id.menu_home){
+                startActivity(new Intent(CheckoutActivity.this, FlowersList.class));
+            }
+            if(item.getItemId()==R.id.menu_order){
+                startActivity(new Intent(CheckoutActivity.this, FlowersList.class));
+            }
+            if(item.getItemId()==R.id.menu_map){
+                startActivity(new Intent(CheckoutActivity.this, ViewMapActivity.class));
+            }
+            return true;
         });
     }
     private void checkoutAfter(){
@@ -409,10 +425,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_home) {
-            startActivity(new Intent(CheckoutActivity.this, FlowersList.class));
-        }
-        else if (item.getItemId() == R.id.menu_cart) {
+        if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
             startActivity(new Intent(CheckoutActivity.this, ViewCartActivity.class));
         }

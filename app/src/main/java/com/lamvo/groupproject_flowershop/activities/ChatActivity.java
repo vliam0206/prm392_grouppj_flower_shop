@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +28,9 @@ import com.lamvo.groupproject_flowershop.FlowersList;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.SignInActivity;
 import com.lamvo.groupproject_flowershop.ViewCartActivity;
+
+import com.lamvo.groupproject_flowershop.ViewMapActivity;
+
 import com.lamvo.groupproject_flowershop.adapters.MessageAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
@@ -46,6 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatActivity extends AppCompatActivity implements View.OnClickListener {
+    BottomNavigationView bottomNavigationView;
     CustomerService customerService;
     ListView lvChats;
     EditText etMessage;
@@ -109,6 +114,21 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         btnSendChat.setOnClickListener(this);
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menu_home) {
+                startActivity(new Intent(ChatActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_order) {
+                startActivity(new Intent(ChatActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_map) {
+                startActivity(new Intent(ChatActivity.this, ViewMapActivity.class));
+            }
+            return true;
+        });
     }
     private void getReceiver(long id) {
         Call<Customer> call = customerService.getCustomer(id);

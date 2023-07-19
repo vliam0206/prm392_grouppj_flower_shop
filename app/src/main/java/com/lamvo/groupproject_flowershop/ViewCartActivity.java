@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.adapters.CartAdapter;
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewCartActivity extends AppCompatActivity implements View.OnClickListener {
-
+    BottomNavigationView bottomNavigationView;
     private RecyclerView cartFlowerList;
     private ArrayList<Flower> flowerArrayList;
     private CartAdapter cartAdapter;
@@ -60,7 +61,7 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
 
         credentialService = new CredentialService(this);
         userId = credentialService.getCurrentUserId();
-        btnCheckout =(Button)findViewById(R.id.btn_checkout);
+        btnCheckout = (Button) findViewById(R.id.btn_checkout);
         btnCheckout.setOnClickListener(this);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
@@ -84,6 +85,20 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
                 });
             }
         }).attachToRecyclerView(cartFlowerList);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menu_home) {
+                startActivity(new Intent(ViewCartActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_order) {
+                startActivity(new Intent(ViewCartActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_map) {
+                startActivity(new Intent(ViewCartActivity.this, ViewMapActivity.class));
+            }
+            return true;
+        });
     }
 
     @Override
@@ -91,9 +106,9 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
         super.onResume();
         retrieveFlowers();
         try {
-          calcTotal(userId);
-        } catch (Exception e){
-            Log.e("e",e.getMessage());
+            calcTotal(userId);
+        } catch (Exception e) {
+            Log.e("e", e.getMessage());
         }
 
     }
@@ -113,15 +128,16 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
             }
         });
     }
-    private void calcTotal(long userId){
+
+    private void calcTotal(long userId) {
         textviewTotal = findViewById(R.id.tvTotal);
         AppExecutors.getsInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 myCart = database.cartDao().getAllFlowersByUserID(userId);
                 double total = 0;
-                for (Cart c:myCart) {
-                    total += c.getUnitPrice() *  c.getQuantity();
+                for (Cart c : myCart) {
+                    total += c.getUnitPrice() * c.getQuantity();
                 }
                 textviewTotal.setText(String.valueOf(total));
             }
@@ -130,9 +146,9 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == btnCheckout.getId()){
-            if(myCart.size() == 0){
-                Toast.makeText(ViewCartActivity.this,"Cart is empty",Toast.LENGTH_SHORT);
+        if (v.getId() == btnCheckout.getId()) {
+            if (myCart.size() == 0) {
+                Toast.makeText(ViewCartActivity.this, "Cart is empty", Toast.LENGTH_SHORT);
                 return;
             }
             Intent intent = new Intent(ViewCartActivity.this, CheckoutActivity.class);
@@ -148,14 +164,10 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_home) {
-            startActivity(new Intent(ViewCartActivity.this, FlowersList.class));
-        }
-        else if (item.getItemId() == R.id.menu_cart) {
+        if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
             startActivity(new Intent(ViewCartActivity.this, ViewCartActivity.class));
-        }
-        else if (item.getItemId() == R.id.menu_logout) {
+        } else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(ViewCartActivity.this, SignInActivity.class));
