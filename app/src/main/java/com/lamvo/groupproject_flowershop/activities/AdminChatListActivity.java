@@ -91,8 +91,9 @@ public class AdminChatListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_profile) {
+        if (item.getItemId() == R.id.menu_home_admin) {
             // profile setting processor
+            startActivity(new Intent(AdminChatListActivity.this, AdminActivity.class));
         }
         else if (item.getItemId() == R.id.menu_logout) {
             FirebaseAuth.getInstance().signOut();

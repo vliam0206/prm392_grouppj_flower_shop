@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.InsertUpdateFlowerActivity"
+    android:gravity="center">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="20dp"
+        android:layout_marginHorizontal="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/txtTitleFlowerMng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Flower"
+                android:textStyle="bold"
+                android:textSize="25dp"
+                android:layout_marginVertical="20dp"/>
+            <EditText
+                android:id="@+id/etFlowerName"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Flower name"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"
+                android:inputType="text"/>
+
+            <EditText
+                android:id="@+id/etPrice"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="Unit price"
+                android:paddingLeft="10dp"
+                android:textSize="20dp" />
+            <EditText
+                android:id="@+id/etUnitInStock"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Unit in stock"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/etDescription"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Description"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"/>
+            <EditText
+                android:id="@+id/etImageUrlFlower"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Image Url"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:textSize="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:background="@color/pink"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginVertical="20dp"/>
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:background="@color/pink"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:layout_marginVertical="20dp"
+                    android:layout_marginLeft="50dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
