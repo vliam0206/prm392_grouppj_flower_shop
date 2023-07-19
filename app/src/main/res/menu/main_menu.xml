@@ -12,11 +12,6 @@
         android:title="View cart"
         app:showAsAction="always" />
     <item
-        android:id="@+id/menu_map"
-        android:icon="@drawable/map_icon_white"
-        android:title="Map"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/menu_logout"
         android:title="Logout" />
 </menu>
