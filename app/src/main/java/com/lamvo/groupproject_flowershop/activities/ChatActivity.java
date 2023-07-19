@@ -26,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.lamvo.groupproject_flowershop.FlowersList;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.SignInActivity;
+import com.lamvo.groupproject_flowershop.ViewCartActivity;
 import com.lamvo.groupproject_flowershop.ViewMapActivity;
 import com.lamvo.groupproject_flowershop.adapters.MessageAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
@@ -182,6 +183,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
+            startActivity(new Intent(ChatActivity.this, ViewCartActivity.class));
         }
         else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature
