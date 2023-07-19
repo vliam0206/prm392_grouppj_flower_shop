@@ -22,7 +22,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.lamvo.groupproject_flowershop.activities.ChatActivity;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.app_services.CredentialService;
@@ -47,8 +49,9 @@ public class FlowerDetailActivity extends AppCompatActivity {
     ImageView ivFlower;
     TextView tvFlowerName, tvFlowerDescription, tvFlowerPrice;
     EditText etQuantity;
-    ImageView ivAdd;
+    ImageView ivAdd, ivPlus, ivMinus;
     CredentialService credentialService;
+    BottomNavigationView bottomNavigationView;
     long userId;
     private static final String CHANNEL_ID = "notification_channel";
     private static final CharSequence CHANNEL_NAME = "Notification Channel";
@@ -64,6 +67,8 @@ public class FlowerDetailActivity extends AppCompatActivity {
         tvFlowerPrice = (TextView) findViewById(R.id.tvFlowerPrice);
         etQuantity = (EditText) findViewById(R.id.etQuantity);
         ivAdd = (ImageView) findViewById(R.id.ivAdd);
+        ivPlus = (ImageView) findViewById(R.id.ivPlus);
+        ivMinus = (ImageView) findViewById(R.id.ivMinus);
         flowerService = FlowerRepository.getFlowerService();
         Intent intent = getIntent();
         long id = intent.getLongExtra("id", -1);
@@ -72,11 +77,41 @@ public class FlowerDetailActivity extends AppCompatActivity {
         }
         credentialService = new CredentialService(FlowerDetailActivity.this);
         long userId = credentialService.getCurrentUserId();
+        ivPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(etQuantity.getText().toString());
+                quantity++;
+                etQuantity.setText(quantity + "");
+            }
+        });
+        ivMinus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantity = Integer.parseInt(etQuantity.getText().toString());
+                quantity--;
+                etQuantity.setText(quantity + "");
+            }
+        });
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertCart(id,userId);
+                insertCart(id, userId);
             }
+        });
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_home);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menu_home) {
+                startActivity(new Intent(FlowerDetailActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_order) {
+                startActivity(new Intent(FlowerDetailActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_map) {
+                startActivity(new Intent(FlowerDetailActivity.this, ViewMapActivity.class));
+            }
+            return true;
         });
     }
 
@@ -113,14 +148,10 @@ public class FlowerDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_home) {
-            startActivity(new Intent(FlowerDetailActivity.this, FlowersList.class));
-        }
-        else if (item.getItemId() == R.id.menu_cart) {
+        if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
             startActivity(new Intent(FlowerDetailActivity.this, ViewCartActivity.class));
-        }
-        else if (item.getItemId() == R.id.menu_logout) {
+        } else if (item.getItemId() == R.id.menu_logout) {
             // process for logout feature
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(FlowerDetailActivity.this, SignInActivity.class));
@@ -129,7 +160,8 @@ public class FlowerDetailActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void insertCart(long idFlower,long idCustomer){
+
+    public void insertCart(long idFlower, long idCustomer) {
         try {
             Call<Flower> call = flowerService.getFlower(idFlower);
             call.enqueue(new Callback<Flower>() {
@@ -140,49 +172,49 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                 AppDatabase.class, "app-database").build();
                         Flower flower = response.body();
                         int quantity = 0;
-                        if(etQuantity.getText().toString().trim().equals("")){
+                        if (etQuantity.getText().toString().trim().equals("")) {
                             quantity = 0;
                         } else {
                             quantity = Integer.parseInt(etQuantity.getText().toString());
                         }
-                        if(quantity > flower.getUnitInStock()){
-                            Toast.makeText(FlowerDetailActivity.this,"You can buy max " + flower.getUnitInStock(), Toast.LENGTH_SHORT).show();
+                        if (quantity > flower.getUnitInStock()) {
+                            Toast.makeText(FlowerDetailActivity.this, "You can buy max " + flower.getUnitInStock(), Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        if(quantity <= 0){
+                        if (quantity <= 0) {
                             etQuantity.setError("Quantity must be larger than 0");
                             return;
                         }
-                         Cart cart = new Cart(1, flower.getFlowerName(),flower.getDescription(),flower.getImageUrl(),flower.getUnitPrice(),quantity,idFlower,idCustomer);
+                        Cart cart = new Cart(1, flower.getFlowerName(), flower.getDescription(), flower.getImageUrl(), flower.getUnitPrice(), quantity, idFlower, idCustomer);
                         AppExecutors.getsInstance().diskIO().execute(new Runnable() {
                             @Override
                             public void run() {
                                 try {
                                     long maxId = database.cartDao().maxId();
-                                    cart.setId(maxId+1);
+                                    cart.setId(maxId + 1);
                                     int quantity = Integer.parseInt(etQuantity.getText().toString());
                                     sendAddToCartNotification(flower.getFlowerName(), quantity);
                                     finish();
                                     List<Cart> cartList = database.cartDao().getAllFlower();
                                     long cartId = cart.getIdFlower();
-                                    List<Cart> cartx =  cartList.stream().filter(c -> c.getIdFlower() == cartId).collect(Collectors.toList());
-                                    if(cartx.isEmpty()){
-                                        cart.setId(maxId+1);
+                                    List<Cart> cartx = cartList.stream().filter(c -> c.getIdFlower() == cartId).collect(Collectors.toList());
+                                    if (cartx.isEmpty()) {
+                                        cart.setId(maxId + 1);
                                         database.cartDao().insert(cart);
                                         finish();
                                     } else {
-                                        for (Cart cart:cartx ) {
-                                              cart.setQuantity(cart.getQuantity() + quantity );
-                                              AppExecutors.getsInstance().diskIO().execute(new Runnable() {
-                                                  @Override
-                                                  public void run() {
-                                                      database.cartDao().update(cart);
-                                                      finish();
-                                                  }
-                                              });
+                                        for (Cart cart : cartx) {
+                                            cart.setQuantity(cart.getQuantity() + quantity);
+                                            AppExecutors.getsInstance().diskIO().execute(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    database.cartDao().update(cart);
+                                                    finish();
+                                                }
+                                            });
                                         }
                                     }
-                                } catch (Exception e){
+                                } catch (Exception e) {
                                     Toast.makeText(FlowerDetailActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -192,13 +224,14 @@ public class FlowerDetailActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Flower> call, Throwable t) {
-                    Log.e("error",t.toString());
+                    Log.e("error", t.toString());
                 }
             });
         } catch (Exception e) {
             Log.d("Loi", e.getMessage());
         }
     }
+
     private void sendAddToCartNotification(String flowerName, int quantity) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
 

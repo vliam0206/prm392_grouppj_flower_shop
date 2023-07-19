@@ -7,13 +7,14 @@
     tools:context=".FlowersList"
     android:background="@color/white"
     android:orientation="vertical"
-    android:gravity="center_horizontal">
+    android:gravity="center_horizontal"
+    android:weightSum="10">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="Flowers list"
         android:textSize="36sp"
         android:textColor="@color/pink"
@@ -23,19 +24,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread"
-        android:layout_marginBottom="15dp"/>
-
+        android:layout_marginBottom="10dp"/>
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="1dp"
+        android:layout_height="0dp"
+        android:layout_weight="10"
         android:divider="@color/nothing"
         android:dividerHeight="0dp"
-        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu"
+        />
+
 
 </LinearLayout>

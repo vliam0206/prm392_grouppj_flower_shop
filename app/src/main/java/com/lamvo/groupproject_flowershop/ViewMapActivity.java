@@ -29,6 +29,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
     private MapView mapView;
     private FusedLocationProviderClient fusedLocationProviderClient;
     private LocationCallback locationCallback;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +67,20 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         };
         MapsInitializer.initialize(getApplicationContext());
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_map);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.menu_home) {
+                startActivity(new Intent(ViewMapActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_order) {
+                startActivity(new Intent(ViewMapActivity.this, FlowersList.class));
+            }
+            if (item.getItemId() == R.id.menu_map) {
+                startActivity(new Intent(ViewMapActivity.this, ViewMapActivity.class));
+            }
+            return true;
+        });
     }
 
     @Override
@@ -173,6 +189,7 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
             }
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.sub_menu, menu);
@@ -181,9 +198,7 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_home) {
-            startActivity(new Intent(ViewMapActivity.this, FlowersList.class));
-        } else if (item.getItemId() == R.id.menu_cart) {
+        if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
             startActivity(new Intent(ViewMapActivity.this, ViewCartActivity.class));
         } else if (item.getItemId() == R.id.menu_logout) {

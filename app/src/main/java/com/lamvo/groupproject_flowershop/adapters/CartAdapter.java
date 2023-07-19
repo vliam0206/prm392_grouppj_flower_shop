@@ -37,7 +37,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.flowerName.setText(flowerList.get(position).getFlowerName());
         String unitPrice = String.valueOf(flowerList.get(position).getUnitPrice());
-        holder.unitPrice.setText(unitPrice);
+        holder.unitPrice.setText("$ " + unitPrice);
         String quantity = String.valueOf(flowerList.get(position).getQuantity());
         holder.quantity.setText(quantity);
         Picasso.get().load(flowerList.get(position).getImageUrl()).into(holder.img);
