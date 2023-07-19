@@ -160,7 +160,6 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                 try {
                                     long maxId = database.cartDao().maxId();
                                     cart.setId(maxId+1);
-                                    database.cartDao().insert(cart);
                                     int quantity = Integer.parseInt(etQuantity.getText().toString());
                                     sendAddToCartNotification(flower.getFlowerName(), quantity);
                                     finish();
@@ -172,7 +171,6 @@ public class FlowerDetailActivity extends AppCompatActivity {
                                         database.cartDao().insert(cart);
                                         finish();
                                     } else {
-//                                        int quantity = cart.getQuantity();
                                         for (Cart cart:cartx ) {
                                               cart.setQuantity(cart.getQuantity() + quantity );
                                               AppExecutors.getsInstance().diskIO().execute(new Runnable() {

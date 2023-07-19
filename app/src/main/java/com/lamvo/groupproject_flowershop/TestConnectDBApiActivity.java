@@ -46,13 +46,13 @@ public class TestConnectDBApiActivity extends AppCompatActivity {
         initilize();
 
         // test customer table
-        showCustomerData();
+//        showCustomerData();
 
         // test flower table
 //        showFlowerData();
 
         // test order table
-//        showOrderData();
+        showOrderData();
         // test order detail table
 //        showOrderDetailData();
     }
@@ -126,6 +126,16 @@ public class TestConnectDBApiActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<Order[]> call, Response<Order[]> response) {
                     Toast.makeText(TestConnectDBApiActivity.this, "Load order data test successfully!", Toast.LENGTH_LONG).show();
+                    Order[] flowers = response.body();
+                    if (flowers == null) {
+                        return;
+                    }
+                    listDataTest = new ArrayList<>();
+                    for (Order flower: flowers) {
+                        listDataTest.add(flower.getId()+", " + flower.getShippedDate());
+                    }
+                    adapter = new ArrayAdapter(TestConnectDBApiActivity.this, android.R.layout.simple_list_item_1, listDataTest);
+                    lvTestData.setAdapter(adapter);
                 }
 
                 @Override
