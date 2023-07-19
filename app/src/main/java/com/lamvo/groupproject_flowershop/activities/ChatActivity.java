@@ -28,7 +28,9 @@ import com.lamvo.groupproject_flowershop.FlowersList;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.SignInActivity;
 import com.lamvo.groupproject_flowershop.ViewCartActivity;
+
 import com.lamvo.groupproject_flowershop.ViewMapActivity;
+
 import com.lamvo.groupproject_flowershop.adapters.MessageAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
