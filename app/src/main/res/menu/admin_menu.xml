@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/menu_orders"
+        android:title="Orders"
+        app:showAsAction="always"
+        android:icon="@mipmap/ic_order_foreground"/>
+    <item
         android:id="@+id/menu_profile"
         android:title="Profile"
         app:showAsAction="always"

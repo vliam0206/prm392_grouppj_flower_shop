@@ -46,6 +46,9 @@ public class AdminActivity extends AppCompatActivity {
             startActivity(new Intent(AdminActivity.this, SignInActivity.class));
             finish();
         }
+        else if (item.getItemId() == R.id.menu_orders) {
+            startActivity(new Intent(AdminActivity.this, OrderActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 }
