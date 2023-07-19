@@ -6,7 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".FlowerDetailActivity"
     android:background="@color/white">
-
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/bottom_nav_menu" />
     <ImageView
         android:id="@+id/ivFlower"
         android:layout_width="match_parent"
@@ -22,74 +28,112 @@
         android:id="@+id/tvFlowerName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:paddingStart="10dp"
         android:text="Flower Name"
-        android:textSize="26sp"
         android:textColor="@color/pink"
+        android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/ivFlower"
-        tools:layout_editor_absoluteX="16dp"
-        android:layout_marginHorizontal="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivFlower" />
+
     <TextView
         android:id="@+id/tvFlowerDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-light"
         android:paddingStart="10dp"
         android:text="Flower Description"
         android:textColor="@color/pink"
         android:textSize="16sp"
-        android:fontFamily="sans-serif-light"
         android:textStyle="italic"
-        app:layout_constraintTop_toBottomOf="@+id/tvFlowerName"
-        tools:layout_editor_absoluteX="16dp"
-        android:layout_marginHorizontal="10dp"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFlowerName" />
+
     <TextView
         android:id="@+id/tvFlowerPrice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="sans-serif-medium"
         android:paddingStart="10dp"
         android:text="200.000"
-        android:textSize="20sp"
         android:textColor="@color/pink"
-        android:fontFamily="sans-serif-medium"
-        app:layout_constraintTop_toBottomOf="@+id/tvFlowerDescription"
-        tools:layout_editor_absoluteX="16dp"
-        android:layout_marginHorizontal="10dp"/>
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvFlowerDescription" />
+
 
     <EditText
         android:id="@+id/etQuantity"
         android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/image_border"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_button"
         android:ems="10"
         android:hint="Quantity"
         android:inputType="number"
         android:paddingStart="10dp"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="@color/pink"
         android:textColorHint="@color/pink"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/ivAdd"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toStartOf="@+id/ivPlus"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivMinus" />
 
+    <ImageView
+        android:id="@+id/ivPlus"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_button_right"
+        android:contentDescription="add to cart button"
+        android:padding="10dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toStartOf="@+id/ivAdd"
+        app:srcCompat="@drawable/plus_pink" />
+
+    <ImageView
+        android:id="@+id/ivMinus"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/border_button_left"
+        android:contentDescription="add to cart button"
+        android:padding="10dp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/minus_pink" />
 
     <ImageView
         android:id="@+id/ivAdd"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/button_plus_radius"
         android:contentDescription="add to cart button"
         android:padding="10dp"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/plus" />
+        app:srcCompat="@drawable/icons8_shopping_basket_add_96___" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
