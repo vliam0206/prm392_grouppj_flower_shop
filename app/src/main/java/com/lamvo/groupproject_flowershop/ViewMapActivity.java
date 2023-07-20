@@ -74,7 +74,7 @@ public class ViewMapActivity extends AppCompatActivity implements OnMapReadyCall
                 startActivity(new Intent(ViewMapActivity.this, FlowersList.class));
             }
             if (item.getItemId() == R.id.menu_order) {
-                startActivity(new Intent(ViewMapActivity.this, FlowersList.class));
+                startActivity(new Intent(ViewMapActivity.this, IndividualOrderActivity.class));
             }
             if (item.getItemId() == R.id.menu_map) {
                 startActivity(new Intent(ViewMapActivity.this, ViewMapActivity.class));

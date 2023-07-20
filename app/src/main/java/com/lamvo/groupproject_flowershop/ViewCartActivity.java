@@ -99,14 +99,6 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
             }
             return true;
         });
-        Button button = findViewById(R.id.btn_intent);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ViewCartActivity.this,IndividualOrderActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, FlowersList.class));
             }
             if(item.getItemId()==R.id.menu_order){
-                startActivity(new Intent(MainActivity.this, FlowersList.class));
+                startActivity(new Intent(MainActivity.this, IndividualOrderActivity.class));
             }
             if(item.getItemId()==R.id.menu_map){
                 startActivity(new Intent(MainActivity.this, ViewMapActivity.class));

@@ -1,15 +1,20 @@
 package com.lamvo.groupproject_flowershop.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.R;
+import com.lamvo.groupproject_flowershop.SignInActivity;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
@@ -126,5 +131,23 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
         flower.setDescription(etDescription.getText().toString());
         flower.setImageUrl(etImageUrl.getText().toString());
         return flower;
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_home_admin) {
+            // profile setting processor
+        }
+        else if (item.getItemId() == R.id.menu_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(InsertUpdateFlowerActivity.this, SignInActivity.class));
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

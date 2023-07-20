@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
     <ImageView
         android:id="@+id/flowerImage"
-        android:layout_width="137dp"
-        android:layout_height="127dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.087"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/image_border"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/flower_map_marker" />
@@ -19,9 +20,12 @@
         android:id="@+id/tvUnitPrice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Unit Price"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/flowerImage"
         app:layout_constraintTop_toBottomOf="@+id/tvFlowerName" />
 
@@ -29,9 +33,12 @@
         android:id="@+id/tvQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-medium"
         android:text="Quantity"
+        android:textColor="@color/pink"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/flowerImage"
         app:layout_constraintTop_toBottomOf="@+id/tvUnitPrice" />
 
@@ -39,10 +46,12 @@
         android:id="@+id/tvFlowerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif-light"
         android:text="Flower Name"
-        android:textSize="20dp"
+        android:textColor="@color/pink"
+        android:textSize="22sp"
         app:layout_constraintStart_toEndOf="@+id/flowerImage"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,11 +1,17 @@
 package com.lamvo.groupproject_flowershop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.lamvo.groupproject_flowershop.activities.InsertUpdateFlowerActivity;
 import com.lamvo.groupproject_flowershop.adapters.CustomerOrderAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
@@ -82,6 +88,24 @@ public class AdminOrderAcitivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_home_admin) {
+            // profile setting processor
+        }
+        else if (item.getItemId() == R.id.menu_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(AdminOrderAcitivity.this, SignInActivity.class));
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

@@ -2,8 +2,14 @@ package com.lamvo.groupproject_flowershop;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.animation.PathInterpolatorCompat;
 import androidx.room.Room;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -11,12 +17,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Path;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.BounceInterpolator;
+import android.view.animation.PathInterpolator;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,6 +112,7 @@ public class FlowerDetailActivity extends AppCompatActivity {
         ivAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                animateProductToCart(id, userId);
                 insertCart(id, userId);
             }
         });
@@ -267,4 +284,40 @@ public class FlowerDetailActivity extends AppCompatActivity {
     private int getNotificationId() {
         return (int) new Date().getTime();
     }
+
+//    private void animateProductToCart(long idFlower, long idCustomer) {
+//        // Get the coordinates of the product image view
+//        int[] productCoordinates = new int[2];
+//        ivFlower.getLocationOnScreen(productCoordinates);
+//        int startX = productCoordinates[0];
+//        int startY = productCoordinates[1];
+//
+//        int[] cartCoordinates = new int[2];
+//        findViewById(R.id.menu_cart).getLocationOnScreen(cartCoordinates);
+//        int endX = cartCoordinates[0];
+//        int endY = cartCoordinates[1];
+//
+//        Path path = new Path();
+//        path.moveTo(startX, startY);
+//        path.quadTo(startX, endY, endX, endY);
+//        ObjectAnimator scaleAnimator = ObjectAnimator.ofPropertyValuesHolder(ivFlower,
+//                PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, 0.2f),
+//                PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, 0.2f)
+//        );
+//        scaleAnimator.setDuration(1000);
+//
+//        ObjectAnimator animator = ObjectAnimator.ofFloat(ivFlower, View.X, View.Y, path);
+//        animator.setDuration(1000);
+//        animator.setInterpolator(new PathInterpolator(0.4f, 0f, 0.2f, 1f));
+//
+//        AnimatorSet animatorSet = new AnimatorSet();
+//        animatorSet.playTogether(animator, scaleAnimator);
+//        animatorSet.start();
+//        animator.addListener(new AnimatorListenerAdapter() {
+//            @Override
+//            public void onAnimationEnd(Animator animation) {
+//                insertCart(idFlower, idCustomer);
+//            }
+//        });
+//    }
 }

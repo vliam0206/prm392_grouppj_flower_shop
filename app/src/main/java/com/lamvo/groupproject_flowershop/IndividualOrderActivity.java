@@ -1,11 +1,17 @@
 package com.lamvo.groupproject_flowershop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.adapters.CartAdapter;
 import com.lamvo.groupproject_flowershop.adapters.CustomerAdapter;
 import com.lamvo.groupproject_flowershop.adapters.CustomerOrderAdapter;
@@ -35,6 +41,7 @@ public class IndividualOrderActivity extends AppCompatActivity {
     CustomerService customerService;
     OrderService orderService;
     long userId;
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +55,40 @@ public class IndividualOrderActivity extends AppCompatActivity {
         orderListView.setLayoutManager(new LinearLayoutManager(this));
         customerOrderAdapter = new CustomerOrderAdapter(this);
         orderListView.setAdapter(customerOrderAdapter);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.menu_order);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            if(item.getItemId()==R.id.menu_home){
+                startActivity(new Intent(IndividualOrderActivity.this, FlowersList.class));
+            }
+            if(item.getItemId()==R.id.menu_order){
+                startActivity(new Intent(IndividualOrderActivity.this, IndividualOrderActivity.class));
+            }
+            if(item.getItemId()==R.id.menu_map){
+                startActivity(new Intent(IndividualOrderActivity.this, ViewMapActivity.class));
+            }
+            return true;
+        });
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.sub_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_cart) {
+            // start view cat activity
+            startActivity(new Intent(IndividualOrderActivity.this, ViewCartActivity.class));
+        } else if (item.getItemId() == R.id.menu_logout) {
+            // process for logout feature
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(IndividualOrderActivity.this, SignInActivity.class));
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
