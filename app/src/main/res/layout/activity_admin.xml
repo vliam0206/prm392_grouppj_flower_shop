@@ -4,30 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     tools:context=".activities.AdminActivity"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:orientation="vertical">
+
     <Button
         android:id="@+id/btnCustomerchat"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="Customer chats"
+        android:layout_marginHorizontal="50dp"
         android:background="@drawable/button_plus_radius"
         android:textColor="@color/white"
-        android:textSize="20dp"
-        android:layout_marginHorizontal="50dp"/>
+        android:textSize="20dp" />
+
     <Button
         android:id="@+id/btnFlowerMng"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:text="Flowers management"
+        android:layout_marginHorizontal="50dp"
         android:layout_marginTop="30dp"
-        android:layout_marginHorizontal="50dp"/>
-<!--    <Button-->
-<!--        android:id="@+id/btnOrderMng"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="70dp"-->
-<!--        android:text="Orders management"-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_marginHorizontal="50dp"/>-->
+        android:text="Flowers management"
+        android:background="@drawable/button_plus_radius"
+        android:textColor="@color/white"
+        android:textSize="20dp"/>
+    <!--    <Button-->
+    <!--        android:id="@+id/btnOrderMng"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="70dp"-->
+    <!--        android:text="Orders management"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:layout_marginHorizontal="50dp"/>-->
 </LinearLayout>
