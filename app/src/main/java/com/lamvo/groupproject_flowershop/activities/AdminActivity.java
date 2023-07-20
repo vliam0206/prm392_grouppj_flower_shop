@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.lamvo.groupproject_flowershop.AdminOrderAcitivity;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.SignInActivity;
 
@@ -34,6 +35,14 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminActivity.this, AdminFlowerMngActivity.class));
+            }
+        });
+        Button btnOrder = findViewById(R.id.viewAllOrder);
+        btnOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this, AdminOrderAcitivity.class);
+                startActivity(intent);
             }
         });
     }
