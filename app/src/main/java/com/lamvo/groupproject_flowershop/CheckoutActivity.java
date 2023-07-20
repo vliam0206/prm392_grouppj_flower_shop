@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.Helper.AppInfo;
 import com.lamvo.groupproject_flowershop.Helper.CreateOrder;
 import com.lamvo.groupproject_flowershop.activities.ChatActivity;
+import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
+import com.lamvo.groupproject_flowershop.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.apis.OderDetailRepository;
 import com.lamvo.groupproject_flowershop.apis.OrderDetailService;
 import com.lamvo.groupproject_flowershop.apis.OrderRepository;
@@ -27,6 +29,7 @@ import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.db.AppDatabase;
 import com.lamvo.groupproject_flowershop.db.AppExecutors;
 import com.lamvo.groupproject_flowershop.models.Cart;
+import com.lamvo.groupproject_flowershop.models.Flower;
 import com.lamvo.groupproject_flowershop.models.Order;
 import com.lamvo.groupproject_flowershop.models.OrderDetail;
 import com.lamvo.groupproject_flowershop.models.OrderStatus;
@@ -57,6 +60,7 @@ public class CheckoutActivity extends AppCompatActivity {
     private OrderService orderService;
     private OrderDetailService orderDetailService;
     Button btnPayNow;
+    private FlowerService flowerService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +72,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 AppDatabase.class, "app-database").build();
         orderService = OrderRepository.getOrderService();
         orderDetailService = OderDetailRepository.getOrderDetailService();
+        flowerService = FlowerRepository.getFlowerService();
         btnPayAfter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,6 +156,34 @@ public class CheckoutActivity extends AppCompatActivity {
                                                 }
                                             });
                                         }
+                                        for (Cart cart:myCart) {
+                                            Call<Flower> flowerCall = flowerService.getFlower(cart.getIdFlower());
+                                            flowerCall.enqueue(new Callback<Flower>() {
+                                                @Override
+                                                public void onResponse(Call<Flower> call, Response<Flower> response) {
+                                                    Flower flower = response.body();
+                                                    flower.setUnitInStock(flower.getUnitInStock() - cart.getQuantity());
+                                                    Call<Flower> flowerCall2 = flowerService.updateFlower(cart.getIdFlower(),flower);
+                                                    flowerCall2.enqueue(new Callback<Flower>() {
+                                                        @Override
+                                                        public void onResponse(Call<Flower> call, Response<Flower> response) {
+                                                           response.body().getUnitInStock();
+                                                        }
+
+                                                        @Override
+                                                        public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                        }
+                                                    });
+
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                }
+                                            });
+                                        }
                                         Toast.makeText(CheckoutActivity.this,"Successfully",Toast.LENGTH_SHORT);
                                         Intent intent = new Intent(CheckoutActivity.this,ViewCartActivity.class);
                                         startActivity(intent);
@@ -198,6 +231,34 @@ public class CheckoutActivity extends AppCompatActivity {
                                                  }
                                              });
                                          }
+                                         for (Cart cart:myCart) {
+                                             Call<Flower> flowerCall = flowerService.getFlower(cart.getIdFlower());
+                                             flowerCall.enqueue(new Callback<Flower>() {
+                                                 @Override
+                                                 public void onResponse(Call<Flower> call, Response<Flower> response) {
+                                                     Flower flower = response.body();
+                                                     flower.setUnitInStock(flower.getUnitInStock() - cart.getQuantity());
+                                                     Call<Flower> flowerCall2 = flowerService.updateFlower(cart.getIdFlower(),flower);
+                                                     flowerCall2.enqueue(new Callback<Flower>() {
+                                                         @Override
+                                                         public void onResponse(Call<Flower> call, Response<Flower> response) {
+
+                                                         }
+
+                                                         @Override
+                                                         public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                         }
+                                                     });
+
+                                                 }
+
+                                                 @Override
+                                                 public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                 }
+                                             });
+                                         }
                                          Toast.makeText(CheckoutActivity.this,"Successfully",Toast.LENGTH_SHORT);
                                          Intent intent = new Intent(CheckoutActivity.this,ViewCartActivity.class);
                                          startActivity(intent);
@@ -209,7 +270,6 @@ public class CheckoutActivity extends AppCompatActivity {
 
                                  }
                              });
-
                          }
                     }
 
@@ -307,6 +367,34 @@ public class CheckoutActivity extends AppCompatActivity {
                                                                             }
                                                                         });
                                                                     }
+                                                                    for(Cart cart:carts){
+                                                                        Call<Flower> flowerCall = flowerService.getFlower(cart.getIdFlower());
+                                                                        flowerCall.enqueue(new Callback<Flower>() {
+                                                                            @Override
+                                                                            public void onResponse(Call<Flower> call, Response<Flower> response) {
+                                                                                Flower flower = response.body();
+                                                                                flower.setUnitInStock(flower.getUnitInStock() - cart.getQuantity());
+                                                                                Call<Flower> flowerCall2 = flowerService.updateFlower(cart.getIdFlower(),flower);
+                                                                                flowerCall2.enqueue(new Callback<Flower>() {
+                                                                                    @Override
+                                                                                    public void onResponse(Call<Flower> call, Response<Flower> response) {
+
+                                                                                    }
+
+                                                                                    @Override
+                                                                                    public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                                                    }
+                                                                                });
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                                            }
+                                                                        });
+                                                                    }
                                                                     Toast.makeText(CheckoutActivity.this,"Successfully",Toast.LENGTH_SHORT);
                                                                     Intent intent = new Intent(CheckoutActivity.this,ViewCartActivity.class);
                                                                     startActivity(intent);
@@ -351,6 +439,34 @@ public class CheckoutActivity extends AppCompatActivity {
 
                                                                             @Override
                                                                             public void onFailure(Call<OrderDetail> call, Throwable t) {
+
+                                                                            }
+                                                                        });
+                                                                    }
+                                                                    for (Cart cart:carts) {
+                                                                        Call<Flower> flowerCall = flowerService.getFlower(cart.getIdFlower());
+                                                                        flowerCall.enqueue(new Callback<Flower>() {
+                                                                            @Override
+                                                                            public void onResponse(Call<Flower> call, Response<Flower> response) {
+                                                                                Flower flower = response.body();
+                                                                                flower.setUnitInStock(flower.getUnitInStock() - cart.getQuantity());
+                                                                                Call<Flower> flowerCall2 = flowerService.updateFlower(cart.getIdFlower(),flower);
+                                                                                flowerCall2.enqueue(new Callback<Flower>() {
+                                                                                    @Override
+                                                                                    public void onResponse(Call<Flower> call, Response<Flower> response) {
+
+                                                                                    }
+
+                                                                                    @Override
+                                                                                    public void onFailure(Call<Flower> call, Throwable t) {
+
+                                                                                    }
+                                                                                });
+
+                                                                            }
+
+                                                                            @Override
+                                                                            public void onFailure(Call<Flower> call, Throwable t) {
 
                                                                             }
                                                                         });

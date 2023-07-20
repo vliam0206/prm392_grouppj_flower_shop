@@ -1,13 +1,16 @@
 package com.lamvo.groupproject_flowershop.models;
 
-public class Flower {
+import java.io.Serializable;
+
+public class Flower implements Serializable {
     private long id;
     private String flowerName;
     private String description;
     private String imageUrl;
     private double unitPrice;
     private int unitInStock;
-
+    public Flower(){
+    }
     public Flower(String flowerName, String description, String imageUrl, double unitPrice, int unitInStock) {
         this.flowerName = flowerName;
         this.description = description;

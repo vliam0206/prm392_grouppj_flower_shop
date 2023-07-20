@@ -28,6 +28,14 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminActivity.this, AdminChatListActivity.class));
             }
         });
+
+        Button btnFlowerMng = findViewById(R.id.btnFlowerMng);
+        btnFlowerMng.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, AdminFlowerMngActivity.class));
+            }
+        });
     }
 
     @Override
@@ -38,7 +46,7 @@ public class AdminActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_profile) {
+        if (item.getItemId() == R.id.menu_home_admin) {
             // profile setting processor
         }
         else if (item.getItemId() == R.id.menu_logout) {

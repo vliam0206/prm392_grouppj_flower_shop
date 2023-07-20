@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,14 +28,18 @@ import com.lamvo.groupproject_flowershop.FlowersList;
 import com.lamvo.groupproject_flowershop.R;
 import com.lamvo.groupproject_flowershop.SignInActivity;
 import com.lamvo.groupproject_flowershop.ViewCartActivity;
+
 import com.lamvo.groupproject_flowershop.ViewMapActivity;
+
 import com.lamvo.groupproject_flowershop.adapters.MessageAdapter;
 import com.lamvo.groupproject_flowershop.apis.CustomerRepository;
 import com.lamvo.groupproject_flowershop.apis.CustomerService;
+import com.lamvo.groupproject_flowershop.app_services.CredentialService;
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
 import com.lamvo.groupproject_flowershop.models.Customer;
 import com.lamvo.groupproject_flowershop.models.MessageModel;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,7 +54,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     CustomerService customerService;
     ListView lvChats;
     EditText etMessage;
-    ImageButton btnSendChat;
+    ImageView btnSendChat;
     String receiverUid;
     long receiverId;
     Intent intent;
@@ -109,6 +114,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         });
 
         btnSendChat.setOnClickListener(this);
+
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.menu_home);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -123,7 +129,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             }
             return true;
         });
-
     }
     private void getReceiver(long id) {
         Call<Customer> call = customerService.getCustomer(id);
@@ -151,9 +156,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             if (message.trim().isEmpty()) {
                 return;
             }
-            // send message
-            String msgId = (new Date()).toString();
+            // generate message id by current date time
+            // Get the current date and time
+            Date currentDate = new Date();
+            // Define the desired format
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            // Format the current date and time using the SimpleDateFormat
+            String formattedDateTime = dateFormat.format(currentDate);
+            String msgId = formattedDateTime;
 
+            // send message
             MessageModel msgModel = new MessageModel(msgId, FirebaseAuth.getInstance().getUid(), message);
 
             senderDatabaseReference
@@ -181,7 +193,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menu_cart) {
+        if (item.getItemId() == R.id.menu_home) {
+            startActivity(new Intent(ChatActivity.this, FlowersList.class));
+        }
+        else if (item.getItemId() == R.id.menu_home_admin) {
+            startActivity(new Intent(ChatActivity.this, AdminActivity.class));
+        }
+        else if (item.getItemId() == R.id.menu_cart) {
             // start view cat activity
             startActivity(new Intent(ChatActivity.this, ViewCartActivity.class));
         }
