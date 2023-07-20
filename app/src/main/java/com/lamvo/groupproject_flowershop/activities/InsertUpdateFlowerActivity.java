@@ -1,15 +1,20 @@
 package com.lamvo.groupproject_flowershop.activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.lamvo.groupproject_flowershop.R;
+import com.lamvo.groupproject_flowershop.SignInActivity;
 import com.lamvo.groupproject_flowershop.apis.FlowerRepository;
 import com.lamvo.groupproject_flowershop.apis.FlowerService;
 import com.lamvo.groupproject_flowershop.constants.AppConstants;
@@ -53,26 +58,19 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //VALIDATE INPUT
-                    if (validateInputs()) {
-                        // update flower
-                        Flower flower = getFlowerObj();
-                        flower.setId(updatedFlower.getId());
-                        updateFlower(flower);
-                    }
+                    Flower flower = getFlowerObj();
+                    flower.setId(updatedFlower.getId());
+                    // update flower
+                    updateFlower(flower);
                 }
             });
         } else {
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    //VALIDATE INPUT
-                    if (validateInputs()) {
-                        // add flower
-                        Flower flower = getFlowerObj();
-                        addFlower(flower);
-                    }
+                    // add flower
+                    Flower flower = getFlowerObj();
+                    addFlower(flower);
                 }
             });
         }
@@ -120,12 +118,11 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
 
     private void generateUI(Flower flower) {
         etName.setText(flower.getFlowerName());
-        etPrice.setText(flower.getUnitPrice() + "");
-        etUnitInStock.setText(flower.getUnitInStock() + "");
+        etPrice.setText(flower.getUnitPrice()+"");
+        etUnitInStock.setText(flower.getUnitInStock()+"");
         etDescription.setText(flower.getDescription());
         etImageUrl.setText(flower.getImageUrl());
     }
-
     private Flower getFlowerObj() {
         Flower flower = new Flower();
         flower.setFlowerName(etName.getText().toString());
@@ -135,55 +132,22 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
         flower.setImageUrl(etImageUrl.getText().toString());
         return flower;
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.admin_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
-    private boolean validateInputs() {
-        String priceStr = etPrice.getText().toString();
-        String unitInStockStr = etUnitInStock.getText().toString();
-        String imageUrl = etImageUrl.getText().toString().trim();
-
-        // Validate input for "etPrice"
-        if (priceStr.isEmpty()) {
-            etPrice.setError("Price cannot be empty");
-            return false;
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.menu_home_admin) {
+            // profile setting processor
         }
-        try {
-            double price = Double.parseDouble(priceStr);
-            if (price <= 0) {
-                etPrice.setError("Price must be greater than zero");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            etPrice.setError("Invalid price format");
-            return false;
+        else if (item.getItemId() == R.id.menu_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(InsertUpdateFlowerActivity.this, SignInActivity.class));
+            finish();
         }
-
-        // Validate input for "etUnitInStock"
-        if (unitInStockStr.isEmpty()) {
-            etUnitInStock.setError("Unit in stock cannot be empty");
-            return false;
-        }
-        try {
-            int unitInStock = Integer.parseInt(unitInStockStr);
-            if (unitInStock < 0) {
-                etUnitInStock.setError("Unit in stock cannot be negative");
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            etUnitInStock.setError("Invalid unit in stock format");
-            return false;
-        }
-
-        // Validate input for "etImageUrl"
-        if (imageUrl.isEmpty()) {
-            etImageUrl.setError("Image URL cannot be empty");
-            return false;
-        }
-        if (!android.util.Patterns.WEB_URL.matcher(imageUrl).matches()) {
-            etImageUrl.setError("Invalid image URL format");
-            return false;
-        }
-
-        // If all input is valid
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 }

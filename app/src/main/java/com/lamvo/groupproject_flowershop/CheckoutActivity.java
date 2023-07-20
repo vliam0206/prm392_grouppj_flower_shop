@@ -99,7 +99,7 @@ public class CheckoutActivity extends AppCompatActivity {
                 startActivity(new Intent(CheckoutActivity.this, FlowersList.class));
             }
             if(item.getItemId()==R.id.menu_order){
-                startActivity(new Intent(CheckoutActivity.this, FlowersList.class));
+                startActivity(new Intent(CheckoutActivity.this, IndividualOrderActivity.class));
             }
             if(item.getItemId()==R.id.menu_map){
                 startActivity(new Intent(CheckoutActivity.this, ViewMapActivity.class));
