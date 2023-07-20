@@ -74,7 +74,9 @@ public class ListAdapter extends BaseAdapter {
         holder.tvName.setText(flower.getFlowerName());
 //      holder.tvDescription.setText(flower.getDescription());
         holder.tvPrice.setText("$ " + flower.getUnitPrice());
-        Picasso.get().load(flower.getImageUrl()).into(holder.imgThubnail);
+        if (!flower.getImageUrl().trim().isEmpty()) {
+            Picasso.get().load(flower.getImageUrl()).into(holder.imgThubnail);
+        }
 
         //Event handler for add a flower to cart
         holder.imgAddToCart.setOnClickListener(new View.OnClickListener() {

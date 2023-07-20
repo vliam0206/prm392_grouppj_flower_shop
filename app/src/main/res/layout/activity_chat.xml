@@ -36,8 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/white"
-                android:gravity="center_horizontal">
+                android:background="@color/white">
 
                 <EditText
                     android:id="@+id/etChatContent"
@@ -45,16 +44,17 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/nothing"
                     android:hint="Type a message..."
-                    android:paddingLeft="20dp" />
+                    android:paddingLeft="20dp"
+                    android:layout_centerVertical="true"/>
 
                 <ImageView
                     android:id="@+id/btnSendChat"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/nothing"
-                    android:src="@mipmap/ic_send_pink" />
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/baseline_send_24"
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
