@@ -30,4 +30,11 @@
 <!--        android:text="Orders management"-->
 <!--        android:layout_marginTop="30dp"-->
 <!--        android:layout_marginHorizontal="50dp"/>-->
+    <Button
+        android:id="@+id/viewAllOrder"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="View Orders"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="50dp"/>
 </LinearLayout>

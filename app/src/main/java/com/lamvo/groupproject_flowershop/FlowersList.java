@@ -90,7 +90,7 @@ public class FlowersList extends AppCompatActivity {
                 startActivity(new Intent(FlowersList.this, FlowersList.class));
             }
             if(item.getItemId()==R.id.menu_order){
-                startActivity(new Intent(FlowersList.this, FlowersList.class));
+                startActivity(new Intent(FlowersList.this, IndividualOrderActivity.class));
             }
             if(item.getItemId()==R.id.menu_map){
                 startActivity(new Intent(FlowersList.this, ViewMapActivity.class));

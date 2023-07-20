@@ -92,12 +92,20 @@ public class ViewCartActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(new Intent(ViewCartActivity.this, FlowersList.class));
             }
             if (item.getItemId() == R.id.menu_order) {
-                startActivity(new Intent(ViewCartActivity.this, FlowersList.class));
+                startActivity(new Intent(ViewCartActivity.this, IndividualOrderActivity.class));
             }
             if (item.getItemId() == R.id.menu_map) {
                 startActivity(new Intent(ViewCartActivity.this, ViewMapActivity.class));
             }
             return true;
+        });
+        Button button = findViewById(R.id.btn_intent);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ViewCartActivity.this,IndividualOrderActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
