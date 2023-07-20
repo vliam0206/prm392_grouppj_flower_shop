@@ -43,35 +43,42 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
                 android:hint="Unit price"
+                android:inputType="number"
                 android:paddingLeft="10dp"
                 android:textSize="20dp" />
+
             <EditText
                 android:id="@+id/etUnitInStock"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Unit in stock"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+                android:hint="Unit in stock"
+                android:inputType="number"
                 android:paddingLeft="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
+
             <EditText
                 android:id="@+id/etDescription"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Description"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+                android:hint="Description"
+                android:inputType="text|textMultiLine"
                 android:paddingLeft="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
+
             <EditText
                 android:id="@+id/etImageUrlFlower"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:hint="Image Url"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginTop="20dp"
+                android:hint="Image Url"
+                android:inputType="text|textUri"
                 android:paddingLeft="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
