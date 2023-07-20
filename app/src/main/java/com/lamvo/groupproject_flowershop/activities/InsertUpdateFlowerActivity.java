@@ -53,19 +53,26 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Flower flower = getFlowerObj();
-                    flower.setId(updatedFlower.getId());
-                    // update flower
-                    updateFlower(flower);
+                    //VALIDATE INPUT
+                    if (validateInputs()) {
+                        // update flower
+                        Flower flower = getFlowerObj();
+                        flower.setId(updatedFlower.getId());
+                        updateFlower(flower);
+                    }
                 }
             });
         } else {
             btnSave.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // add flower
-                    Flower flower = getFlowerObj();
-                    addFlower(flower);
+
+                    //VALIDATE INPUT
+                    if (validateInputs()) {
+                        // add flower
+                        Flower flower = getFlowerObj();
+                        addFlower(flower);
+                    }
                 }
             });
         }
@@ -113,11 +120,12 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
 
     private void generateUI(Flower flower) {
         etName.setText(flower.getFlowerName());
-        etPrice.setText(flower.getUnitPrice()+"");
-        etUnitInStock.setText(flower.getUnitInStock()+"");
+        etPrice.setText(flower.getUnitPrice() + "");
+        etUnitInStock.setText(flower.getUnitInStock() + "");
         etDescription.setText(flower.getDescription());
         etImageUrl.setText(flower.getImageUrl());
     }
+
     private Flower getFlowerObj() {
         Flower flower = new Flower();
         flower.setFlowerName(etName.getText().toString());
@@ -126,5 +134,56 @@ public class InsertUpdateFlowerActivity extends AppCompatActivity {
         flower.setDescription(etDescription.getText().toString());
         flower.setImageUrl(etImageUrl.getText().toString());
         return flower;
+    }
+
+    private boolean validateInputs() {
+        String priceStr = etPrice.getText().toString();
+        String unitInStockStr = etUnitInStock.getText().toString();
+        String imageUrl = etImageUrl.getText().toString().trim();
+
+        // Validate input for "etPrice"
+        if (priceStr.isEmpty()) {
+            etPrice.setError("Price cannot be empty");
+            return false;
+        }
+        try {
+            double price = Double.parseDouble(priceStr);
+            if (price <= 0) {
+                etPrice.setError("Price must be greater than zero");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            etPrice.setError("Invalid price format");
+            return false;
+        }
+
+        // Validate input for "etUnitInStock"
+        if (unitInStockStr.isEmpty()) {
+            etUnitInStock.setError("Unit in stock cannot be empty");
+            return false;
+        }
+        try {
+            int unitInStock = Integer.parseInt(unitInStockStr);
+            if (unitInStock < 0) {
+                etUnitInStock.setError("Unit in stock cannot be negative");
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            etUnitInStock.setError("Invalid unit in stock format");
+            return false;
+        }
+
+        // Validate input for "etImageUrl"
+        if (imageUrl.isEmpty()) {
+            etImageUrl.setError("Image URL cannot be empty");
+            return false;
+        }
+        if (!android.util.Patterns.WEB_URL.matcher(imageUrl).matches()) {
+            etImageUrl.setError("Invalid image URL format");
+            return false;
+        }
+
+        // If all input is valid
+        return true;
     }
 }
